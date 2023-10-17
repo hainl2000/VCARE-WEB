@@ -1,0 +1,215 @@
+@import "antd/dist/antd.css";
+@import "./color.css";
+@import url("https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+
+/* @import url("https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,100;1,200;1,300;1,500;1,600&display=swap"); */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  font-family: "Asap", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-weight: 400; */
+}
+/* width */
+::-webkit-scrollbar {
+  height: 6px; /* height of horizontal scrollbar ← You're missing this */
+  width: 6px; /* width of vertical scrollbar */
+  border: 1px solid #d5d5d5;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.ant-menu-horizontal > .ant-menu-item-selected a {
+  color: #feb800 !important;
+}
+.ant-menu-horizontal:not(.ant-menu-dark)
+  > .ant-menu-item-selected::after {
+  border-bottom: none !important;
+}
+.ant-menu-horizontal > .ant-menu-item a:hover {
+  color: #feb800 !important;
+}
+.ant-menu-item-active::before {
+  color: #feb800 !important;
+}
+.ant-layout {
+  background: white !important;
+}
+.formFilter .ant-select-selector {
+  width: 200px !important;
+  border: 1px solid rgba(0, 0, 0, 0.6) !important;
+}
+.ant-carousel .slick-dots {
+  margin-left: 0 !important;
+}
+#components-layout-demo-custom-trigger .trigger {
+  padding: 0 24px !important;
+  font-size: 18px !important;
+  line-height: 64px !important;
+  cursor: pointer !important;
+  transition: color 0.3s !important;
+}
+
+#components-layout-demo-custom-trigger .trigger:hover {
+  color: #1890ff !important;
+}
+
+#components-layout-demo-custom-trigger .logo {
+  height: 32px !important;
+  margin: 16px !important;
+  background: rgba(255, 255, 255, 0.3) !important;
+}
+
+.site-layout .site-layout-background {
+  background: #fff !important;
+}
+.ant-layout-sider {
+  background: white !important;
+  /* min-width: 200px !important; */
+  min-width: 235px !important;
+}
+
+.ant-layout-sider-collapsed {
+  min-width: 80px !important;
+}
+.ck-editor__editable {
+  min-height: 200px !important;
+}
+.ant-upload-list-picture-card
+  .ant-upload-list-item-info::before {
+  left: 0 !important;
+}
+.ant-upload.ant-upload-select-picture-card {
+  width: 234px !important;
+}
+.ant-upload-list-picture-card-container {
+  width: 234px !important;
+}
+.ant-upload-list-picture-card
+  .ant-upload-list-item-thumbnail,
+.ant-upload-list-picture-card
+  .ant-upload-list-item-thumbnail
+  img {
+  object-fit: cover !important;
+}
+
+.ant-upload.ant-upload-select {
+  /* display: block !important; */
+}
+
+@media (max-width: 900px) {
+  .ant-form-inline {
+    flex-wrap: nowrap !important;
+    padding: 0 50px !important;
+    overflow: auto !important;
+  }
+}
+/* 
+.ant-menu-overflow-item span a {
+  color: red !important;
+} */
+
+.ant-menu-horizontal:not(.ant-menu-dark)
+  > .ant-menu-item:hover::after {
+  border-bottom: white !important;
+}
+.btn-primary-buy-nft {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  background-color: #3f86f5;
+  border-radius: 4px;
+  text-align: center;
+  padding: 8px;
+  border: none;
+  cursor: pointer;
+  width: 100px;
+  margin: auto;
+}
+.map-container {
+  width: 100%;
+  height: 400px;
+}
+.ant-input[disabled] {
+  color: black !important;
+}
+.ant-picker-input > input[disabled] {
+  color: black !important;
+}
+@media (max-width: 800px) {
+  .ant-layout-header {
+    padding: 0 15px !important;
+  }
+  .ant-menu-overflow {
+    justify-content: end;
+    color: #feb800;
+  }
+  .ant-menu-horizontal:not(.ant-menu-dark)
+    > .ant-menu-item:hover,
+  .ant-menu-horizontal:not(.ant-menu-dark)
+    > .ant-menu-submenu:hover,
+  .ant-menu-horizontal:not(.ant-menu-dark)
+    > .ant-menu-item-active,
+  .ant-menu-horizontal:not(.ant-menu-dark)
+    > .ant-menu-submenu-active,
+  .ant-menu-horizontal:not(.ant-menu-dark)
+    > .ant-menu-item-open,
+  .ant-menu-horizontal:not(.ant-menu-dark)
+    > .ant-menu-submenu-open,
+  .ant-menu-horizontal:not(.ant-menu-dark)
+    > .ant-menu-item-selected,
+  .ant-menu-horizontal:not(.ant-menu-dark)
+    > .ant-menu-submenu-selected {
+    color: #feb800 !important;
+  }
+  .ant-menu-horizontal:not(.ant-menu-dark)
+    > .ant-menu-item:hover::after,
+  .ant-menu-horizontal:not(.ant-menu-dark)
+    > .ant-menu-submenu:hover::after,
+  .ant-menu-horizontal:not(.ant-menu-dark)
+    > .ant-menu-item-active::after,
+  .ant-menu-horizontal:not(.ant-menu-dark)
+    > .ant-menu-submenu-active::after,
+  .ant-menu-horizontal:not(.ant-menu-dark)
+    > .ant-menu-item-open::after,
+  .ant-menu-horizontal:not(.ant-menu-dark)
+    > .ant-menu-submenu-open::after,
+  .ant-menu-horizontal:not(.ant-menu-dark)
+    > .ant-menu-item-selected::after,
+  .ant-menu-horizontal:not(.ant-menu-dark)
+    > .ant-menu-submenu-selected::after {
+    border-bottom: none !important;
+  }
+  .ant-menu-light .ant-menu-item:hover,
+  .ant-menu-light .ant-menu-item-active,
+  .ant-menu-light
+    .ant-menu:not(.ant-menu-inline)
+    .ant-menu-submenu-open,
+  .ant-menu-light .ant-menu-submenu-active,
+  .ant-menu-light .ant-menu-submenu-title:hover {
+    color: #feb800 !important;
+  }
+}
