@@ -23,17 +23,19 @@ const AdminLogin = () => {
     manual: true,
     onSuccess: (res) => {
       router.push("/admin/hospital-management");
-      setCookie("adminId", res?.data?.id);
-      setCookie("accessTokenAdmin", res?.data?.accessToken);
-      setProfileAdmin(res?.data);
+      console.log(res.data);
+      setCookie("adminId", res?.data?.profile.id);
+      setCookie("adminProfile", res?.data?.profile);
+      setCookie("accessTokenAdmin", res?.data?.token);
+      setProfileAdmin(res?.data?.profile);
       notification.success({
         message: "Đăng nhập thành công",
       });
     },
-    onError: (e) => {
+    onError: (e: any) => {
       //@ts-ignore
       console.log(e);
-      message.error("Sai tên đăng nhập hoặc mật khẩu");
+      message.error(e?.response?.data?.message[0]);
     },
   });
   const onSubmit = (value: any) => {

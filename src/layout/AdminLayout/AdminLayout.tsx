@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -10,7 +10,7 @@ import {
 import { Button, Layout, Menu, Space } from "antd";
 import styles from "./index.module.scss";
 import { useRouter } from "next/router";
-import { deleteCookie, getCookies } from "cookies-next";
+import { deleteCookie, getCookie } from "cookies-next";
 import { useProfile } from "@/store/ManagerProfile/useProfile";
 import {
   initialAdminProfile,
@@ -21,8 +21,15 @@ const { Header, Sider, Content } = Layout;
 const AdminLayout = ({ children }: { children: any }) => {
   const [collapsed, setCollapsed] = useState(false);
   //@ts-ignore
+  const [admin, setAdmin] = useState<any>();
   const { profileAdmin, setProfileAdmin } = useProfile();
+  useEffect(() => {
+    const adminProfile = JSON.parse(
+      getCookie("adminProfile") as string
+    );
 
+    setAdmin(adminProfile);
+  }, []);
   const router = useRouter();
   const handleLogout = () => {
     router.push("/admin/login");
@@ -32,9 +39,9 @@ const AdminLayout = ({ children }: { children: any }) => {
   };
   const activeMenu = () => {
     switch (router.pathname) {
-      case "/admin/lessor-management":
+      case "/admin/hospital-management":
         return ["1"];
-      case "/admin/apartment-management":
+      case "/admin/doctor-management":
         return ["2"];
       case "/admin/user-management":
         return ["3"];
@@ -58,10 +65,10 @@ const AdminLayout = ({ children }: { children: any }) => {
         <div className={styles.logo}>
           {!collapsed && (
             <img
-              src="https://res.cloudinary.com/deiijz7oj/image/upload/v1682071326/qrd8wf7wpyvzykp0e4fn.png"
+              src="/images/logo-vcare.png"
               style={{
-                width: "150px",
-                height: "50px",
+                width: "100px",
+                height: "100px",
               }}
             />
           )}
@@ -77,29 +84,29 @@ const AdminLayout = ({ children }: { children: any }) => {
           items={[
             {
               key: "1",
-              icon: <UserOutlined />,
-              label: (
-                <div
-                  onClick={() => {
-                    router.push("/admin/lessor-management");
-                  }}
-                >
-                  Quản lý chủ nhà
-                </div>
-              ),
-            },
-            {
-              key: "2",
               icon: <HomeOutlined />,
               label: (
                 <div
                   onClick={() => {
                     router.push(
-                      "/admin/apartment-management"
+                      "/admin/hospital-management"
                     );
                   }}
                 >
-                  Quản lý chung cư
+                  Quản lý bệnh viện
+                </div>
+              ),
+            },
+            {
+              key: "2",
+              icon: <UserOutlined />,
+              label: (
+                <div
+                  onClick={() => {
+                    router.push("/admin/doctor-management");
+                  }}
+                >
+                  Quản lý bác sĩ
                 </div>
               ),
             },
@@ -112,7 +119,7 @@ const AdminLayout = ({ children }: { children: any }) => {
                     router.push("/admin/user-management");
                   }}
                 >
-                  Quản lý người thuê
+                  Quản lý bệnh nhân
                 </div>
               ),
             },
@@ -140,7 +147,7 @@ const AdminLayout = ({ children }: { children: any }) => {
             }
           )}
 
-          {profileAdmin && (
+          {admin && (
             <>
               <Space>
                 <div
@@ -149,7 +156,7 @@ const AdminLayout = ({ children }: { children: any }) => {
                     fontWeight: 600,
                   }}
                 >
-                  {profileAdmin?.full_name}
+                  {admin?.email}
                 </div>
                 <Button
                   icon={<LogoutOutlined />}

@@ -15,8 +15,16 @@
     border-radius: 50px;
     box-shadow: 10px 15px rgba(0, 0, 0, 0.2);
     .btnLogin {
+      font-weight: 500;
       padding: 0 40px;
       border-radius: 15px;
+      background: linear-gradient(
+        to right,
+        #4fc58d,
+        #48b392,
+        #45a298
+      );
+      border: none;
     }
   }
 }
