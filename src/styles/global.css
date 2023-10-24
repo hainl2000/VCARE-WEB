@@ -86,8 +86,23 @@ a {
 .site-layout .site-layout-background {
   background: #fff !important;
 }
+.ant-layout-header {
+  /* color: white;
+  background: linear-gradient(
+    to right,
+    #45a298,
+    #4fc58d,
+    #48b392
+  ) !important; */
+}
 .ant-layout-sider {
-  background: white !important;
+  /* background: white !important; */
+  background: linear-gradient(
+    to right,
+    #4fc58d,
+    #48b392,
+    #45a298
+  ) !important;
   /* min-width: 200px !important; */
   min-width: 235px !important;
 }

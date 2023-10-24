@@ -16,10 +16,14 @@ export default function App({
         <meta name="theme-color" content="#476055" />
         <meta name="title" content="VCare" />
         <meta name="description" content="VCare" />
+        <meta
+          name="format-detection"
+          content="telephone=no, date=no, email=no, address=no"
+        />
         <link
           rel="icon"
           type="image/png"
-          href="/images/logo.png"
+          href="/images/logo-vcare.png"
         />
         <meta
           name="viewport"

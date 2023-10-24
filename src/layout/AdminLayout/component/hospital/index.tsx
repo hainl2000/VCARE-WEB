@@ -7,6 +7,7 @@ import {
   Input,
   Tooltip,
   Typography,
+  message,
 } from "antd";
 import styles from "./index.module.scss";
 import Table, { ColumnsType } from "antd/lib/table";
@@ -23,6 +24,9 @@ const HospitalManagement = () => {
     getListHospital,
     {
       form,
+      onError(err) {
+        message.error("Có lỗi xảy ra");
+      },
     }
   );
   const [isOpen, setIsOpen] = useState(false);
@@ -54,6 +58,7 @@ const HospitalManagement = () => {
     },
     {
       title: "Hành động",
+      // dataIndex: "",
       align: "center",
       width: "10%",
       render: (value, record) => (
@@ -103,19 +108,29 @@ const HospitalManagement = () => {
       </Typography>
       {searchForm}
       <div className={styles.tableContainer}>
-        <Table {...tableProps} columns={columns} />
+        <Table
+          {...tableProps}
+          columns={columns}
+          rowKey={(item) => item.id}
+          scroll={{ x: 1000 }}
+        />
       </div>
-      <CreateHospitalForm
-        open={isOpen}
-        setOpen={setIsOpen}
-        refresh={refresh}
-      />
-      <DetailHospitalForm
-        open={isOpenDetail}
-        setOpen={setIsOpenDetail}
-        refresh={refresh}
-        id={Number(id)}
-      />
+
+      {isOpen && (
+        <CreateHospitalForm
+          open={isOpen}
+          setOpen={setIsOpen}
+          refresh={refresh}
+        />
+      )}
+      {isOpenDetail && (
+        <DetailHospitalForm
+          open={isOpenDetail}
+          setOpen={setIsOpenDetail}
+          refresh={refresh}
+          id={Number(id)}
+        />
+      )}
     </div>
   );
 };

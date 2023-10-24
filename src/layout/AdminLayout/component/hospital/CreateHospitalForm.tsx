@@ -27,11 +27,12 @@ const CreateHospitalForm = ({
   const createHospital = useRequest(createHospitalService, {
     manual: true,
     onSuccess(res) {
-      refresh();
       setOpen(false);
       notification.success({
         message: "Thêm thành công",
       });
+      form.resetFields();
+      refresh();
     },
     onError(e: any) {
       //@ts-ignore

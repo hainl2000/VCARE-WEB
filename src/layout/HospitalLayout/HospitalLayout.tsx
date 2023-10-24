@@ -12,38 +12,37 @@ import styles from "./index.module.scss";
 import { useRouter } from "next/router";
 import { deleteCookie, getCookie } from "cookies-next";
 import { useProfile } from "@/store/ManagerProfile/useProfile";
-import {
-  initialAdminProfile,
-  initialManagerProfile,
-} from "@/store/ManagerProfile/profile";
+import { initialManagerProfile } from "@/store/ManagerProfile/profile";
 const { Header, Sider, Content } = Layout;
 
-const AdminLayout = ({ children }: { children: any }) => {
+const HospitalLayout = ({
+  children,
+}: {
+  children: any;
+}) => {
   const [collapsed, setCollapsed] = useState(false);
   //@ts-ignore
-  const [admin, setAdmin] = useState<any>();
+  const [manager, setManager] = useState<any>();
   const { profileAdmin, setProfileAdmin } = useProfile();
   useEffect(() => {
-    const adminProfile = JSON.parse(
-      getCookie("adminProfile") as string
+    const managerProfile = JSON.parse(
+      getCookie("managerProfile") as string
     );
 
-    setAdmin(adminProfile);
+    setManager(managerProfile);
   }, [profileAdmin]);
   const router = useRouter();
   const handleLogout = () => {
-    router.push("/admin/login");
-    setProfileAdmin(initialAdminProfile);
-    deleteCookie("adminId");
-    deleteCookie("accessTokenAdmin");
+    router.push("/hospital/login");
+    deleteCookie("accessTokenManager");
   };
   const activeMenu = () => {
     switch (router.pathname) {
-      case "/admin/hospital-management":
+      case "/hospital/doctor-management":
         return ["1"];
-      case "/admin/doctor-management":
+      case "/hospital/department-management":
         return ["2"];
-      case "/admin/user-management":
+      case "/hospital/service-management":
         return ["3"];
       default:
         return [];
@@ -57,7 +56,7 @@ const AdminLayout = ({ children }: { children: any }) => {
         collapsible
         collapsed={collapsed}
         style={{
-          // borderRight: "1px solid rgba(0,0,0,0.1)",
+          //  borderRight: "1px solid rgba(0,0,0,0.1)",
           minWidth: "270px",
           // width: 270px;
         }}
@@ -84,38 +83,41 @@ const AdminLayout = ({ children }: { children: any }) => {
             color: "white",
             marginTop: "20px",
             background: `linear-gradient(
-              to right,
-              #4fc58d,
-              #48b392,
-              #45a298
-             )`,
+					to right,
+					#4fc58d,
+					#48b392,
+					#45a298
+				 )`,
           }}
           items={[
             {
               key: "1",
-              icon: <HomeOutlined />,
+              icon: <UserOutlined />,
+
               label: (
                 <div
                   onClick={() => {
                     router.push(
-                      "/admin/hospital-management"
+                      "/hospital/doctor-management"
                     );
                   }}
                 >
-                  Quản lý bệnh viện
+                  Quản lý bác sĩ
                 </div>
               ),
             },
             {
               key: "2",
-              icon: <UserOutlined />,
+              icon: <HomeOutlined />,
               label: (
                 <div
                   onClick={() => {
-                    router.push("/admin/doctor-management");
+                    router.push(
+                      "/hospital/department-management"
+                    );
                   }}
                 >
-                  Quản lý bác sĩ
+                  Quản lý khoa khám
                 </div>
               ),
             },
@@ -125,10 +127,12 @@ const AdminLayout = ({ children }: { children: any }) => {
               label: (
                 <div
                   onClick={() => {
-                    router.push("/admin/user-management");
+                    router.push(
+                      "/hospital/service-management"
+                    );
                   }}
                 >
-                  Quản lý bệnh nhân
+                  Quản lý dịch vụ khám
                 </div>
               ),
             },
@@ -156,7 +160,7 @@ const AdminLayout = ({ children }: { children: any }) => {
             }
           )}
 
-          {admin && (
+          {manager && (
             <>
               <Space>
                 <div
@@ -165,7 +169,7 @@ const AdminLayout = ({ children }: { children: any }) => {
                     fontWeight: 600,
                   }}
                 >
-                  {admin?.email}
+                  {manager?.name}
                 </div>
                 <Button
                   icon={<LogoutOutlined />}
@@ -191,4 +195,4 @@ const AdminLayout = ({ children }: { children: any }) => {
   );
 };
 
-export default AdminLayout;
+export default HospitalLayout;

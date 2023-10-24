@@ -24,6 +24,10 @@ export const useProfile = () => {
   const [profileAdmin, setProfileAdmin] = useRecoilState(
     adminProfileAtom
   );
+  const [
+    profileHospitalManager,
+    setProfileHospitalManager,
+  ] = useRecoilState(managerProfileAtom);
 
   const requestGetProfileAdmin = useRequest(
     async () => {
@@ -50,5 +54,7 @@ export const useProfile = () => {
     profileAdmin,
     setProfileAdmin,
     requestGetProfileAdmin,
+    profileHospitalManager,
+    setProfileHospitalManager,
   };
 };
