@@ -36,6 +36,7 @@ const AdminLayout = ({ children }: { children: any }) => {
     setProfileAdmin(initialAdminProfile);
     deleteCookie("adminId");
     deleteCookie("accessTokenAdmin");
+    deleteCookie("adminProfile");
   };
   const activeMenu = () => {
     switch (router.pathname) {
