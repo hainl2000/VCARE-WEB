@@ -10,12 +10,15 @@ export const getListHospital = (
     searchText: string;
   }
 ) => {
-  const queryString = `?pageIndex=${current}&pageSize=${pageSize}&searchText=${
-    formData.searchText ?? ""
-  }`;
+  const params = {
+    pageSize: pageSize,
+    pageIndex: current,
+    searchText: formData.searchText ?? "",
+  };
   return privateRequestAdmin(
     "GET",
-    API_PATH.HOSPITAL + queryString
+    API_PATH.HOSPITAL,
+    params
   ).then((res) => {
     return {
       list: res.data.data,

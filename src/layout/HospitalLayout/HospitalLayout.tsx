@@ -34,7 +34,7 @@ const HospitalLayout = ({
   const router = useRouter();
   const handleLogout = () => {
     router.push("/hospital/login");
-    deleteCookie("accessTokenManager");
+    deleteCookie("accessTokenHospital");
   };
   const activeMenu = () => {
     switch (router.pathname) {

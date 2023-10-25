@@ -9,13 +9,13 @@ const instanceRequest = axios.create({
 });
 
 export const request = instanceRequest;
-export const privateRequest = async (
+export const privateRequestHospital = async (
   method: string,
   url: string,
   payload?: any
 ) => {
-  const tokenManager = await getCookie(
-    "accessTokenManager"
+  const tokenHospital = await getCookie(
+    "accessTokenHospital"
   );
   return instanceRequest({
     withCredentials: false,
@@ -24,7 +24,7 @@ export const privateRequest = async (
     data: payload,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      Authorization: `Bearer ${tokenManager}`,
+      Authorization: `Bearer ${tokenHospital}`,
     },
   });
 };
@@ -55,6 +55,7 @@ export const privateRequestAdmin = async (
     method: method,
     url: url,
     data: payload,
+    params: method === "GET" ? payload : null,
     headers: {
       Authorization: `Bearer ${tokenAdmin}`,
     },
