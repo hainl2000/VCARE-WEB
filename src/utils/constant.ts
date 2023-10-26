@@ -6,6 +6,7 @@ export const API_PATH = {
   DETAIL_HOSPITAL: (id: number) => `/hospital/detail/${id}`,
   //hospital
   HOSPITAL_LOGIN: "/auth/hospital",
+  HOSPITAL_DOCTOR: "/hospital/doctors",
   DEPARTMENT_MANAGE: "/department",
   HOSPITAL_SERVICES: "/hospital-service",
   DOCTOR_MANAGE: "/doctor",
