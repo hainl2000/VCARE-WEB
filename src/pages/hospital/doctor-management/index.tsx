@@ -1,9 +1,12 @@
 import HospitalLayout from "@/layout/HospitalLayout/HospitalLayout";
+import DoctorManagement from "@/layout/HospitalLayout/component/doctor";
 import React from "react";
 
 const DoctorManagementPage = () => {
   return (
-    <HospitalLayout> DoctorManagementPage</HospitalLayout>
+    <HospitalLayout>
+      <DoctorManagement />
+    </HospitalLayout>
   );
 };
 

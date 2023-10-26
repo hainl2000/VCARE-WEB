@@ -16,15 +16,3 @@ export function formatNumber(x: number): string {
     return splitNum[0];
   } else return convertNum;
 }
-
-export const checkLogin = async () => {
-  const tokenUser = await getCookie("accessTokenUser");
-  if (tokenUser) return true;
-  return false;
-};
-export const checkStatusRent = (end_time: string) => {
-  return (
-    moment(end_time).toDate().getTime() >
-    new Date().getTime()
-  );
-};

@@ -15,23 +15,24 @@ import {
 } from "@ant-design/icons";
 import { ColumnsType } from "antd/lib/table";
 import { useAntdTable } from "ahooks";
+import CreateServiceForm from "./CreateServiceForm";
+import DetailServiceForm from "./DetailServiceForm";
+import { getServiceInHospital } from "./service";
 import { formatNumber } from "@/utils/helper";
-import CreateDoctorForm from "./CreateDoctorForm";
-import DetailDoctorForm from "./DetailDoctorForm";
-const DoctorManagement = () => {
+const HospitalService = () => {
   const [form] = Form.useForm();
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenDetail, setIsOpenDetail] = useState(false);
   const [id, setId] = useState();
-  //   const { tableProps, search, refresh } = useAntdTable(
-  //     getServiceInHospital,
-  //     {
-  //       form,
-  //       onError: (err: any) => {
-  //         message.error(err);
-  //       },
-  //     }
-  //   );
+  const { tableProps, search, refresh } = useAntdTable(
+    getServiceInHospital,
+    {
+      form,
+      onError: (err: any) => {
+        message.error(err);
+      },
+    }
+  );
   const columns: ColumnsType<any> = [
     {
       title: "ID",
@@ -70,7 +71,7 @@ const DoctorManagement = () => {
       ),
     },
   ];
-  //   const { submit } = search;
+  const { submit } = search;
   const searchForm = (
     <div className={styles.searchForm}>
       <Form form={form} layout="inline">
@@ -78,7 +79,7 @@ const DoctorManagement = () => {
           <Input.Search
             allowClear
             placeholder="Tìm kiếm"
-            // onSearch={submit}
+            onSearch={submit}
           />
         </Form.Item>
       </Form>
@@ -87,7 +88,7 @@ const DoctorManagement = () => {
         onClick={() => setIsOpen(true)}
         icon={<PlusOutlined />}
       >
-        Thêm bác sĩ
+        Thêm dịch vụ
       </Button>
     </div>
   );
@@ -95,13 +96,13 @@ const DoctorManagement = () => {
     <div className={styles.wrapper}>
       <Typography>
         <Typography.Title level={5}>
-          Quản lý bác sĩ
+          Quản lý dịch vụ khám
         </Typography.Title>
       </Typography>
       {searchForm}
       <div className={styles.tableContainer}>
         <Table
-          //  {...tableProps}
+          {...tableProps}
           columns={columns}
           rowKey={(item) => item.id}
           scroll={{ x: 1000 }}
@@ -109,17 +110,17 @@ const DoctorManagement = () => {
       </div>
 
       {isOpen && (
-        <CreateDoctorForm
+        <CreateServiceForm
           open={isOpen}
           setOpen={setIsOpen}
-          refresh={() => {}}
+          refresh={refresh}
         />
       )}
       {isOpenDetail && (
-        <DetailDoctorForm
+        <DetailServiceForm
           open={isOpenDetail}
           setOpen={setIsOpenDetail}
-          refresh={() => {}}
+          refresh={refresh}
           id={Number(id)}
         />
       )}
@@ -127,4 +128,4 @@ const DoctorManagement = () => {
   );
 };
 
-export default DoctorManagement;
+export default HospitalService;

@@ -22,8 +22,9 @@ export const privateRequestHospital = async (
     method: method,
     url: url,
     data: payload,
+    params: method === "GET" ? payload : null,
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${tokenHospital}`,
     },
   });

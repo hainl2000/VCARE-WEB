@@ -13,18 +13,14 @@ import {
   createHospitalService,
   detailHospitalService,
 } from "./service";
-interface CreateHospitalProps {
-  open: boolean;
-  setOpen: any;
-  refresh: () => void;
-  id: number;
-}
+import { DetailFormProps } from "@/type/common.interface";
+
 const DetailHospitalForm = ({
   open,
   setOpen,
   refresh,
   id,
-}: CreateHospitalProps) => {
+}: DetailFormProps) => {
   const onCancel = () => {
     setOpen(false);
   };

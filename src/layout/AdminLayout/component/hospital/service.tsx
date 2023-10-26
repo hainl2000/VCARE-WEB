@@ -28,9 +28,11 @@ export const getListHospital = (
 };
 
 export const createHospitalService = (input: any) => {
-  return privateRequestAdmin("POST", API_PATH.HOSPITAL, {
-    ...input,
-  });
+  return privateRequestAdmin(
+    "POST",
+    API_PATH.HOSPITAL,
+    input
+  );
 };
 
 export const detailHospitalService = (id: number) => {

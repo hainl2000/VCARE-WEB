@@ -7,4 +7,7 @@ export const API_PATH = {
   //hospital
   HOSPITAL_LOGIN: "/auth/hospital",
   DEPARTMENT_MANAGE: "/department",
+  HOSPITAL_SERVICES: "/hospital-service",
+  DOCTOR_MANAGE: "/doctor",
+  DOCTOR_ROLE: "/doctor-role",
 };
