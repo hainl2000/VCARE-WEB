@@ -11,7 +11,6 @@ import {
   initialAdminProfile,
 } from "./profile";
 import {
-  privateRequest,
   privateRequestAdmin,
   privateRequestUser,
   request,
