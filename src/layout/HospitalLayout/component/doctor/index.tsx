@@ -18,35 +18,33 @@ import { useAntdTable } from "ahooks";
 import { formatNumber } from "@/utils/helper";
 import CreateDoctorForm from "./CreateDoctorForm";
 import DetailDoctorForm from "./DetailDoctorForm";
+import { getListDoctor } from "./service";
 const DoctorManagement = () => {
   const [form] = Form.useForm();
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenDetail, setIsOpenDetail] = useState(false);
   const [id, setId] = useState();
-  //   const { tableProps, search, refresh } = useAntdTable(
-  //     getServiceInHospital,
-  //     {
-  //       form,
-  //       onError: (err: any) => {
-  //         message.error(err);
-  //       },
-  //     }
-  //   );
+  const { tableProps, search, refresh } = useAntdTable(
+    getListDoctor,
+    {
+      form,
+      onError: (err: any) => {
+        message.error(err);
+      },
+    }
+  );
   const columns: ColumnsType<any> = [
     {
       title: "ID",
       dataIndex: "id",
     },
     {
-      title: "Tên dịch vụ",
-      dataIndex: "name",
+      title: "Tên bác sĩ",
+      dataIndex: "full_name",
     },
     {
-      title: "Giá dịch vụ",
-      dataIndex: "fee",
-      render(value) {
-        return <>{formatNumber(value)}</>;
-      },
+      title: "Mã bác sĩ",
+      dataIndex: "code",
     },
     {
       title: "Hành động",
@@ -101,7 +99,7 @@ const DoctorManagement = () => {
       {searchForm}
       <div className={styles.tableContainer}>
         <Table
-          //  {...tableProps}
+          {...tableProps}
           columns={columns}
           rowKey={(item) => item.id}
           scroll={{ x: 1000 }}
