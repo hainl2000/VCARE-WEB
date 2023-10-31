@@ -10,4 +10,6 @@ export const API_PATH = {
   HOSPITAL_SERVICES: "/hospital-service",
   DOCTOR_MANAGE: "/doctor",
   DOCTOR_ROLE: "/doctor-role",
+  //doctor
+  DOCTOR_LOGIN: "/auth/doctor",
 };

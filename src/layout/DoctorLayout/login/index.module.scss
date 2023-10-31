@@ -1,0 +1,38 @@
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(
+    to right,
+    #4fc58d,
+    #48b392,
+    #45a298
+  );
+  .logo {
+    text-align: center;
+  }
+  //   background-size: auto;
+  .formLogin {
+    width: 500px;
+    // background: rgba(196, 196, 196, 0.9);
+    /* text-align: center; */
+    padding: 10px 50px 50px 50px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 10px 15px rgba(0, 0, 0, 0.2);
+    .btnLogin {
+      font-weight: 500;
+      padding: 0 40px;
+      border-radius: 15px;
+      background: linear-gradient(
+        to right,
+        #4fc58d,
+        #48b392,
+        #45a298
+      );
+      border: none;
+    }
+  }
+}

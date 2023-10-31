@@ -3,9 +3,9 @@ import { getCookie } from "cookies-next";
 const instanceRequest = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: false,
-  // headers: {
-  //   "Content-Type": "application/json; charset=utf",
-  // },
+  headers: {
+    web: "true",
+  },
 });
 
 export const request = instanceRequest;
