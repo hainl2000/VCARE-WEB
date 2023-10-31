@@ -6,50 +6,46 @@ import {
   UserOutlined,
   LogoutOutlined,
   UsergroupAddOutlined,
+  HistoryOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, Space } from "antd";
 import styles from "./index.module.scss";
 import { useRouter } from "next/router";
 import { deleteCookie, getCookie } from "cookies-next";
-import { useProfile } from "@/store/ManagerProfile/useProfile";
-import { initialManagerProfile } from "@/store/ManagerProfile/profile";
 const { Header, Sider, Content } = Layout;
-
-const HospitalLayout = ({
+const SpecialistDoctorLayout = ({
   children,
 }: {
   children: any;
 }) => {
   const [collapsed, setCollapsed] = useState(false);
   //@ts-ignore
-  const [manager, setManager] = useState<any>();
-  const { profileAdmin, setProfileAdmin } = useProfile();
+  const [doctor, setDoctor] = useState<any>();
   useEffect(() => {
-    const managerProfile = JSON.parse(
-      getCookie("managerProfile") as string
+    const doctorProfile = JSON.parse(
+      getCookie("doctorProfile") as string
     );
 
-    setManager(managerProfile);
-  }, [profileAdmin]);
+    setDoctor(doctorProfile);
+  }, []);
   const router = useRouter();
   const handleLogout = () => {
-    router.push("/hospital/login");
-    deleteCookie("accessTokenHospital");
-    deleteCookie("managerProfile");
+    router.push("/doctor/login");
+    deleteCookie("accessTokenDoctor");
+    deleteCookie("doctorProfile");
   };
   const activeMenu = () => {
     switch (router.pathname) {
-      case "/hospital/doctor-management":
+      case "/doctor/specialist/appointment":
         return ["1"];
-      case "/hospital/department-management":
+      case "/doctor/specialist/history":
         return ["2"];
-      case "/hospital/service-management":
-        return ["3"];
+      // case "/doctor/service-management":
+      //   return ["3"];
       default:
         return [];
     }
   };
-
   return (
     <Layout className={styles.managerLayout}>
       <Sider
@@ -84,11 +80,11 @@ const HospitalLayout = ({
             color: "white",
             marginTop: "20px",
             background: `linear-gradient(
-					to right,
-					#4fc58d,
-					#48b392,
-					#45a298
-				 )`,
+            to right,
+            #4fc58d,
+            #48b392,
+            #45a298
+          )`,
           }}
           items={[
             {
@@ -99,41 +95,26 @@ const HospitalLayout = ({
                 <div
                   onClick={() => {
                     router.push(
-                      "/hospital/doctor-management"
+                      "/doctor/specialist/appointment"
                     );
                   }}
                 >
-                  Quản lý bác sĩ
+                  Quản lý lịch khám
                 </div>
               ),
             },
             {
               key: "2",
-              icon: <HomeOutlined />,
+              icon: <HistoryOutlined />,
               label: (
                 <div
                   onClick={() => {
                     router.push(
-                      "/hospital/department-management"
+                      "/doctor/specialist/history"
                     );
                   }}
                 >
-                  Quản lý khoa khám
-                </div>
-              ),
-            },
-            {
-              key: "3",
-              icon: <UsergroupAddOutlined />,
-              label: (
-                <div
-                  onClick={() => {
-                    router.push(
-                      "/hospital/service-management"
-                    );
-                  }}
-                >
-                  Quản lý dịch vụ khám
+                  Lịch sử khám
                 </div>
               ),
             },
@@ -161,7 +142,7 @@ const HospitalLayout = ({
             }
           )}
 
-          {manager && (
+          {doctor && (
             <>
               <Space>
                 <div
@@ -170,7 +151,7 @@ const HospitalLayout = ({
                     fontWeight: 600,
                   }}
                 >
-                  {manager?.name}
+                  {doctor?.full_name}
                 </div>
                 <Button
                   icon={<LogoutOutlined />}
@@ -196,4 +177,4 @@ const HospitalLayout = ({
   );
 };
 
-export default HospitalLayout;
+export default SpecialistDoctorLayout;

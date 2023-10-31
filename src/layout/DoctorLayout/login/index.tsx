@@ -23,9 +23,23 @@ const DoctorLogin = () => {
     manual: true,
     onSuccess: (res) => {
       console.log(res.data);
+      setCookie("doctorProfile", res?.data?.profile);
+      setCookie("accessTokenDoctor", res?.data?.token);
       switch (res.data.profile.drole.id) {
         case 1: {
+          router.push("/doctor/reception/appointment");
+          break;
+        }
+        case 2: {
           router.push("/doctor/specialist/appointment");
+          break;
+        }
+        case 3: {
+          router.push("/doctor/services");
+          break;
+        }
+        default: {
+          break;
         }
       }
       //  setCookie("adminId", res?.data?.profile.id);

@@ -13,4 +13,7 @@ export const API_PATH = {
   DOCTOR_ROLE: "/doctor-role",
   //doctor
   DOCTOR_LOGIN: "/auth/doctor",
+  APPOINTMENT: "/appointment",
+  DETAIL_APPOINTMENT: (id: number) =>
+    `/appointment/detail/${id}`,
 };

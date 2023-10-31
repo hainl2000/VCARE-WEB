@@ -30,18 +30,19 @@ export const privateRequestHospital = async (
   });
 };
 
-export const privateRequestUser = async (
+export const privateRequestDoctor = async (
   method: string,
   url: string,
   payload?: any
 ) => {
-  const tokenUser = await getCookie("accessTokenUser");
+  const tokenDoctor = await getCookie("accessTokenDoctor");
   return instanceRequest({
     method: method,
     url: url,
     data: payload,
+    params: method === "GET" ? payload : null,
     headers: {
-      Authorization: `Bearer ${tokenUser}`,
+      Authorization: `Bearer ${tokenDoctor}`,
     },
   });
 };
