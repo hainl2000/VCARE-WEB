@@ -9,6 +9,8 @@ import {
   Radio,
   Row,
   Select,
+  Upload,
+  UploadFile,
   message,
 } from "antd";
 import React, { useEffect, useState } from "react";
@@ -18,6 +20,8 @@ import {
   getAllHospitalServices,
   getListDoctorRoles,
 } from "./service";
+import { RcFile, UploadProps } from "antd/lib/upload";
+import { getCookie } from "cookies-next";
 
 const CreateDoctorForm = ({
   open,
@@ -29,6 +33,10 @@ const CreateDoctorForm = ({
   const [roleDoctor, setRoleDoctor] = useState();
   const [listDepartment, setListDepartment] = useState([]);
   const [listService, setListService] = useState([]);
+  const [fileList, setFileList] = useState<UploadFile[]>(
+    []
+  );
+  const tokenHospital = getCookie("accessTokenHospital");
   const createDoctor = useRequest(createDoctorService, {
     manual: true,
     onSuccess(res) {
@@ -61,11 +69,34 @@ const CreateDoctorForm = ({
       },
     }
   );
+  const onChange: UploadProps["onChange"] = ({
+    fileList: newFileList,
+  }) => {
+    setFileList(newFileList);
+  };
   const onCancel = () => {
     setOpen(false);
   };
+  const onPreview = async (file: UploadFile) => {
+    let src = file.url as string;
+    if (!src) {
+      src = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj as RcFile);
+        reader.onload = () =>
+          resolve(reader.result as string);
+      });
+    }
+    const image = new Image();
+    image.src = src;
+    const imgWindow = window.open(src);
+    imgWindow?.document.write(image.outerHTML);
+  };
   const onFinish = (value: any) => {
-    createDoctor.run(value);
+    createDoctor.run({
+      ...value,
+      avatar: value.avatar.file?.response?.url,
+    });
   };
   const renderRole = (role: string) => {
     switch (role) {
@@ -102,6 +133,30 @@ const CreateDoctorForm = ({
         layout="vertical"
         onFinish={onFinish}
       >
+        <Row justify="center">
+          <Form.Item name="avatar">
+            <Upload
+              className="avatar-uploader"
+              style={{
+                width: "200px",
+                height: "200px",
+              }}
+              accept=".png,.jpg,.jpeg"
+              action={
+                process.env.NEXT_PUBLIC_API_URL + "/upload"
+              }
+              headers={{
+                Authorization: `Bearer ${tokenHospital}`,
+              }}
+              onPreview={onPreview}
+              listType="picture-card"
+              fileList={fileList}
+              onChange={onChange}
+            >
+              {fileList.length < 1 && "Ảnh đại diện"}
+            </Upload>
+          </Form.Item>
+        </Row>
         <Row justify="space-between">
           <Col span={11} lg={11} sm={24} xs={24}>
             <Form.Item
@@ -168,7 +223,7 @@ const CreateDoctorForm = ({
             </Form.Item>
           </Col>
         </Row>
-        <Form.Item label="Vai trò">
+        <Form.Item label="Vai trò" name="role_id">
           <Radio.Group
             onChange={(e) => setRoleDoctor(e.target.value)}
           >
