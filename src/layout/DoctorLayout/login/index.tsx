@@ -35,7 +35,7 @@ const DoctorLogin = () => {
           break;
         }
         case 3: {
-          router.push("/doctor/services");
+          router.push("/doctor/services/appointment");
           break;
         }
         default: {

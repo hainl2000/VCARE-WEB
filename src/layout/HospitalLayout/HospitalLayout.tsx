@@ -23,14 +23,13 @@ const HospitalLayout = ({
   const [collapsed, setCollapsed] = useState(false);
   //@ts-ignore
   const [manager, setManager] = useState<any>();
-  const { profileAdmin, setProfileAdmin } = useProfile();
   useEffect(() => {
     const managerProfile = JSON.parse(
       getCookie("managerProfile") as string
     );
 
     setManager(managerProfile);
-  }, [profileAdmin]);
+  }, []);
   const router = useRouter();
   const handleLogout = () => {
     router.push("/hospital/login");
