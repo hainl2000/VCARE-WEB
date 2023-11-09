@@ -34,9 +34,9 @@ const ServiceDoctorLayout = ({
   };
   const activeMenu = () => {
     switch (router.pathname) {
-      case "/doctor/service/appointment":
+      case "/doctor/services/appointment":
         return ["1"];
-      case "/doctor/service/history":
+      case "/doctor/services/history":
         return ["2"];
       // case "/doctor/service-management":
       //   return ["3"];
@@ -93,7 +93,7 @@ const ServiceDoctorLayout = ({
                 <div
                   onClick={() => {
                     router.push(
-                      "/doctor/specialist/appointment"
+                      "/doctor/services/appointment"
                     );
                   }}
                 >
@@ -107,9 +107,7 @@ const ServiceDoctorLayout = ({
               label: (
                 <div
                   onClick={() => {
-                    router.push(
-                      "/doctor/specialist/history"
-                    );
+                    router.push("/doctor/services/history");
                   }}
                 >
                   Lịch sử khám
@@ -130,7 +128,17 @@ const ServiceDoctorLayout = ({
             alignItems: "center",
           }}
         >
-          <div></div>
+          <div>
+            {React.createElement(
+              collapsed
+                ? MenuUnfoldOutlined
+                : MenuFoldOutlined,
+              {
+                className: "trigger",
+                onClick: () => setCollapsed(!collapsed),
+              }
+            )}
+          </div>
           {doctor && (
             <>
               <Space>

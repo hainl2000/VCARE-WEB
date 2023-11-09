@@ -1,0 +1,22 @@
+.logo {
+  //   height: 60px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  .logoWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: rgb(252, 246, 236);
+    img {
+      border-radius: 50%;
+    }
+  }
+}
+.managerLayout {
+  font-weight: 500;
+}
