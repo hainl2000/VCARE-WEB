@@ -36,3 +36,37 @@ export const createServiceHospital = (input: any) => {
     }
   );
 };
+
+export const getListMedicalServices = (
+  {
+    current,
+    pageSize,
+    service_id,
+  }: {
+    current: number;
+    pageSize: number;
+    service_id: number;
+  },
+  formData?: {
+    search: string;
+  }
+) => {
+  const params: any = {
+    pageSize,
+    service_id,
+    pageIndex: current,
+  };
+  if (!!formData && !!formData.search) {
+    params.name = formData.search;
+  }
+  return privateRequestHospital(
+    "GET",
+    API_PATH.HOSPITAL_MEDICAL_SERVICES,
+    params
+  ).then((res) => {
+    return {
+      list: res.data.data,
+      total: res.data.total,
+    };
+  });
+};

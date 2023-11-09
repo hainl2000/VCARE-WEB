@@ -23,7 +23,7 @@ const HospitalService = () => {
   const [form] = Form.useForm();
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenDetail, setIsOpenDetail] = useState(false);
-  const [id, setId] = useState();
+  const [service, setService] = useState<any>();
   const { tableProps, search, refresh } = useAntdTable(
     getServiceInHospital,
     {
@@ -63,7 +63,7 @@ const HospitalService = () => {
               }}
               onClick={() => {
                 setIsOpenDetail(true);
-                setId(record.id);
+                setService(record);
               }}
             />
           </Tooltip>
@@ -121,7 +121,8 @@ const HospitalService = () => {
           open={isOpenDetail}
           setOpen={setIsOpenDetail}
           refresh={refresh}
-          id={Number(id)}
+          id={Number(service?.id)}
+          title={service?.name}
         />
       )}
     </div>

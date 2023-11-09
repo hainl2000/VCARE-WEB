@@ -8,4 +8,5 @@ export interface DetailFormProps {
   setOpen: any;
   refresh: () => void;
   id: number;
+  title?: string;
 }

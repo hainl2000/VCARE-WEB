@@ -9,6 +9,7 @@ export const API_PATH = {
   HOSPITAL_DOCTOR: "/hospital/doctors",
   DEPARTMENT_MANAGE: "/department",
   HOSPITAL_SERVICES: "/hospital-service",
+  HOSPITAL_MEDICAL_SERVICES: "/hospital-service/list",
   DOCTOR_MANAGE: "/doctor",
   DOCTOR_ROLE: "/doctor-role",
   //doctor

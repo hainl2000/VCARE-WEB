@@ -51,7 +51,7 @@ const CreateServiceForm = ({
   };
   return (
     <Modal
-      width={800}
+      width={400}
       open={open}
       onCancel={onCancel}
       title="Thêm dịch vụ"
@@ -65,22 +65,8 @@ const CreateServiceForm = ({
         <Form.Item label="Tên dịch vụ" name="name">
           <Input placeholder="Nhập tên dịch vụ khám" />
         </Form.Item>
-        <Form.Item label="Giá khám" name="fee">
-          <InputNumber
-            placeholder="Nhập giá khám"
-            style={{
-              width: "300px",
-            }}
-            controls={false}
-            formatter={(value) =>
-              `${value}`.replace(
-                /\B(?=(\d{3})+(?!\d))/g,
-                ","
-              )
-            }
-          />
-        </Form.Item>
-        <span>Những chỉ số cần khám</span>
+
+        {/* <span>Những chỉ số cần khám</span>
         <Form.List name="template">
           {(fields, { add, remove }) => (
             <>
@@ -136,7 +122,7 @@ const CreateServiceForm = ({
               </Form.Item>
             </>
           )}
-        </Form.List>
+        </Form.List> */}
         <Row justify="end">
           <Button
             type="primary"
