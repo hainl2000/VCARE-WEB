@@ -271,7 +271,12 @@ const CreateDoctorForm = ({
                 },
               ]}
             >
-              <Select placeholder="Chọn dịch vụ">
+              <Select
+                placeholder="Chọn dịch vụ"
+                showSearch
+                // onSearch={(val) => getListService.run(val)}
+                filterOption={false}
+              >
                 {listService.map((item: any) => (
                   <Select.Option
                     key={item.id}

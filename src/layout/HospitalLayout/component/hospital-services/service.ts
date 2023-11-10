@@ -48,15 +48,15 @@ export const getListMedicalServices = (
     service_id: number;
   },
   formData?: {
-    search: string;
+    search?: string;
   }
 ) => {
   const params: any = {
     pageSize,
-    service_id,
+    serviceId: +service_id,
     pageIndex: current,
   };
-  if (!!formData && !!formData.search) {
+  if (!!formData?.search) {
     params.name = formData.search;
   }
   return privateRequestHospital(
@@ -69,4 +69,12 @@ export const getListMedicalServices = (
       total: res.data.total,
     };
   });
+};
+
+export const createMedicalService = (input: any) => {
+  return privateRequestHospital(
+    "POST",
+    API_PATH.MEDICAL_SERVICES,
+    input
+  );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { DetailFormProps } from "@/type/common.interface";
 import { useAntdTable } from "ahooks";
 import { Button, Form, Input, Modal, Table } from "antd";
@@ -6,6 +6,8 @@ import { getListMedicalServices } from "./service";
 import styles from "./index.module.scss";
 import { PlusOutlined } from "@ant-design/icons";
 import { ColumnsType } from "antd/lib/table";
+import CreateMedicalService from "./CreateMedicalService";
+import { formatNumber } from "@/utils/helper";
 const DetailServiceForm = ({
   open,
   setOpen,
@@ -18,24 +20,29 @@ const DetailServiceForm = ({
     setOpen(false);
   };
   const [form] = Form.useForm();
-  const { tableProps, search, run } = useAntdTable(
-    getListMedicalServices,
-    {
-      form,
-      defaultParams: [
-        {
-          current: 1,
-          pageSize: 10,
-          service_id: id,
-        },
-      ],
-    }
-  );
+  const [isOpen, setIsOpen] = useState(false);
+  const {
+    tableProps,
+    search,
+    refresh: refreshListMedical,
+  } = useAntdTable(getListMedicalServices, {
+    form,
+    defaultParams: [
+      {
+        current: 1,
+        pageSize: 10,
+        service_id: id,
+      },
+      {
+        search: "",
+      },
+    ],
+  });
   const { submit } = search;
   const searchForm = (
     <div className={styles.searchForm}>
       <Form form={form} layout="inline">
-        <Form.Item name="searchText">
+        <Form.Item name="search">
           <Input.Search
             allowClear
             placeholder="Tìm kiếm"
@@ -45,7 +52,7 @@ const DetailServiceForm = ({
       </Form>
       <Button
         type="primary"
-        // onClick={() => setIsOpen(true)}
+        onClick={() => setIsOpen(true)}
         icon={<PlusOutlined />}
       >
         Thêm dịch vụ
@@ -56,6 +63,15 @@ const DetailServiceForm = ({
     {
       title: "Tên dịch vụ",
       dataIndex: "name",
+    },
+    {
+      title: "Giá dịch vụ",
+      dataIndex: "fee",
+      render: (value) => <>{formatNumber(value)}Đ</>,
+    },
+    {
+      title: "Phòng",
+      dataIndex: "room",
     },
   ];
 
@@ -78,6 +94,12 @@ const DetailServiceForm = ({
           />
         </div>
       </div>
+      <CreateMedicalService
+        open={isOpen}
+        setOpen={setIsOpen}
+        refresh={refreshListMedical}
+        id={id}
+      />
     </Modal>
   );
 };
