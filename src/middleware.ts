@@ -11,12 +11,14 @@ export async function middleware(request: NextRequest) {
   const { cookies } = request;
   const tokenHospital = cookies.get("accessTokenHospital");
   const tokenAdmin = cookies.get("accessTokenAdmin");
+  const tokenDoctor = cookies.get("accessTokenDoctor");
   const path = request.nextUrl.pathname;
 
   if (
     !tokenHospital &&
     path !== "/hospital/login" &&
-    !path.includes("/admin")
+    !path.includes("/admin") &&
+    !path.includes("/doctor")
   ) {
     return NextResponse.redirect(
       new URL("/hospital/login", request.url)
@@ -25,10 +27,31 @@ export async function middleware(request: NextRequest) {
   if (
     tokenHospital &&
     path === "/hospital/login" &&
-    !path.includes("/admin")
+    !path.includes("/admin") &&
+    !path.includes("/doctor")
   ) {
     return NextResponse.redirect(
       new URL("/hospital", request.url)
+    );
+  }
+  if (
+    !tokenDoctor &&
+    path !== "/doctor/login" &&
+    !path.includes("/hospital") &&
+    !path.includes("/admin")
+  ) {
+    return NextResponse.redirect(
+      new URL("/doctor/login", request.url)
+    );
+  }
+  if (
+    tokenDoctor &&
+    path === "/doctor/login" &&
+    !path.includes("/hospital") &&
+    !path.includes("/admin")
+  ) {
+    return NextResponse.redirect(
+      new URL("/doctor", request.url)
     );
   }
   if (
@@ -61,5 +84,9 @@ export const config = {
     "/admin",
     "/admin/login",
     "/admin/hospital-management",
+    "/doctor/login",
+    "/doctor/services",
+    "/doctor/specialist",
+    "/doctor/specialist/appointment",
   ],
 };

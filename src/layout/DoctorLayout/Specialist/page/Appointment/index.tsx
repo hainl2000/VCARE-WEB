@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Form,
@@ -6,14 +6,21 @@ import {
   Table,
   Tag,
   Typography,
+  message,
 } from "antd";
 import styles from "./index.module.scss";
-import { useAntdTable } from "ahooks";
-import { getAppointmentService } from "./service";
+import { useAntdTable, useRequest } from "ahooks";
+import {
+  assignAppointment,
+  getAppointmentService,
+} from "./service";
 import { ColumnsType } from "antd/lib/table";
 import dayjs from "dayjs";
+import { useRouter } from "next/router";
+import { getCookie } from "cookies-next";
 const AppointmentSpecialist = () => {
   const [form] = Form.useForm();
+  const router = useRouter();
   const { tableProps, search } = useAntdTable(
     getAppointmentService,
     {
@@ -21,6 +28,29 @@ const AppointmentSpecialist = () => {
     }
   );
   const { submit } = search;
+  const [appointmentId, setAppointmentId] = useState();
+  const assign = useRequest(assignAppointment, {
+    manual: true,
+    onSuccess: (res) => {
+      message.success("Đã tiếp nhận đơn khám!");
+      router.push(
+        `/doctor/specialist/appointment/${appointmentId}`
+      );
+    },
+    onError: (err) => {
+      message.error(err.message);
+    },
+  });
+  const [doctor, setDoctor] = useState<any>();
+  useEffect(() => {
+    const doctorProfile = JSON.parse(
+      getCookie("doctorProfile") as string
+    );
+
+    setDoctor(doctorProfile);
+  }, []);
+  console.log(doctor);
+
   const searchForm = (
     <div className={styles.searchForm}>
       <Form form={form} layout="inline">
@@ -34,6 +64,16 @@ const AppointmentSpecialist = () => {
       </Form>
     </div>
   );
+  const renderStatus = (status: string) => {
+    switch (status) {
+      case "REQUESTING":
+        return <Tag color="gray">Đang chờ khám</Tag>;
+      case "DONE":
+        return <Tag color="green">Đã khám</Tag>;
+      case "CHECKING":
+        return <Tag color="purple">Đang khám</Tag>;
+    }
+  };
   const columns: ColumnsType<any> = [
     {
       title: "Thời gian đặt khám",
@@ -52,16 +92,8 @@ const AppointmentSpecialist = () => {
     },
     {
       title: "Trạng thái",
-      dataIndex: "finished",
-      render: (value) => (
-        <>
-          {value ? (
-            <Tag color="green">Đã khám</Tag>
-          ) : (
-            <Tag color="gray">Chưa khám</Tag>
-          )}
-        </>
-      ),
+      dataIndex: "status",
+      render: (value) => <>{renderStatus(value)}</>,
     },
     {
       title: "Hành động",
@@ -71,9 +103,24 @@ const AppointmentSpecialist = () => {
       render: (value, record) => (
         <>
           <Button
-            href={`/doctor/specialist/appointment/${record.id}`}
+            onClick={() => {
+              if (record.status === "REQUESTING") {
+                setAppointmentId(record.id);
+                assign.run(record.id);
+              } else {
+                router.push(
+                  `/doctor/specialist/appointment/${record.id}`
+                );
+              }
+            }}
+            disabled={
+              record.status !== "REQUESTING" &&
+              record.doctor_id !== doctor?.id
+            }
           >
-            Xem chi tiết
+            {record.status === "REQUESTING"
+              ? "Nhận khám"
+              : "Xem chi tiết"}
           </Button>
         </>
       ),

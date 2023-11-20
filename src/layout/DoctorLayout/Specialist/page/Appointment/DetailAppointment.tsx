@@ -51,6 +51,16 @@ const DetailAppointment = () => {
           ...res.data.patient_information,
           medical_condition: res.data.medical_condition,
         });
+        if (res.data.finished) {
+          setFileList([
+            {
+              uid: "-1",
+              name: "medicine",
+              status: "done",
+              url: res.data?.medicine,
+            },
+          ]);
+        }
       },
     }
   );
@@ -260,6 +270,11 @@ const DetailAppointment = () => {
             <Card title="Kết luận và đơn thuốc">
               <Form
                 onFinish={onFinishAppoitment}
+                initialValues={{
+                  conclude:
+                    detailAppointment.data?.data?.conclude,
+                  note: detailAppointment.data?.data?.note,
+                }}
                 disabled={
                   detailAppointment?.data?.data?.finished
                 }
@@ -275,7 +290,7 @@ const DetailAppointment = () => {
                   label="Đơn thuốc"
                 >
                   <Upload
-                    accept=".png,.jpg,.jpeg"
+                    accept=".png,.jpg,.jpeg, .xlsx"
                     action={
                       process.env.NEXT_PUBLIC_API_URL +
                       "/upload"
@@ -287,7 +302,7 @@ const DetailAppointment = () => {
                     fileList={fileList}
                     onChange={onChange}
                   >
-                    {fileList.length < 5 && "Kết quả khám"}
+                    {fileList.length < 1 && "Kết quả khám"}
                   </Upload>
                 </Form.Item>
                 <Form.Item name="note" label="Ghi chú">

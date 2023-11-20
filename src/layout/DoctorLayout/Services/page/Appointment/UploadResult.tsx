@@ -99,7 +99,7 @@ const UploadResult = ({
               width: "200px",
               height: "200px",
             }}
-            accept=".png,.jpg,.jpeg"
+            accept=".png,.jpg,.jpeg, .xlsx, .xls"
             action={
               process.env.NEXT_PUBLIC_API_URL + "/upload"
             }

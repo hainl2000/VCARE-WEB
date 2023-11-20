@@ -59,3 +59,10 @@ export const updateAppointmentService = (
     input
   );
 };
+
+export const assignAppointment = (id: number) => {
+  return privateRequestDoctor(
+    "GET",
+    API_PATH.ASSIGN_APOINTMENT(id)
+  );
+};

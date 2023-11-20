@@ -118,14 +118,14 @@ const DoctorManagement = () => {
         <CreateDoctorForm
           open={isOpen}
           setOpen={setIsOpen}
-          refresh={() => {}}
+          refresh={refresh}
         />
       )}
       {isOpenDetail && (
         <DetailDoctorForm
           open={isOpenDetail}
           setOpen={setIsOpenDetail}
-          refresh={() => {}}
+          refresh={refresh}
           id={Number(id)}
         />
       )}
