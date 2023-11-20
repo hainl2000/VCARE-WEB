@@ -43,6 +43,14 @@ const DoctorManagement = () => {
       dataIndex: "full_name",
     },
     {
+      title: "Số điện thoại",
+      dataIndex: "phone",
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+    },
+    {
       title: "Mã bác sĩ",
       dataIndex: "code",
     },

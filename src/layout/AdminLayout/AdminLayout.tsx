@@ -24,11 +24,13 @@ const AdminLayout = ({ children }: { children: any }) => {
   const [admin, setAdmin] = useState<any>();
   const { profileAdmin, setProfileAdmin } = useProfile();
   useEffect(() => {
-    const adminProfile = JSON.parse(
-      getCookie("adminProfile") as string
-    );
+    if (getCookie("adminProfile")) {
+      const adminProfile = JSON.parse(
+        getCookie("adminProfile") as string
+      );
 
-    setAdmin(adminProfile);
+      setAdmin(adminProfile);
+    }
   }, [profileAdmin]);
   const router = useRouter();
   const handleLogout = () => {

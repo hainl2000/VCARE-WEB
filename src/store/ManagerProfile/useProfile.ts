@@ -12,7 +12,7 @@ import {
 } from "./profile";
 import {
   privateRequestAdmin,
-  privateRequestUser,
+  privateRequestDoctor,
   request,
 } from "@/api/request";
 import { API_PATH } from "@/utils/constant";

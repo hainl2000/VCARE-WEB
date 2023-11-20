@@ -3,9 +3,9 @@ import { getCookie } from "cookies-next";
 const instanceRequest = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: false,
-  // headers: {
-  //   "Content-Type": "application/json; charset=utf",
-  // },
+  headers: {
+    web: "true",
+  },
 });
 
 export const request = instanceRequest;
@@ -35,34 +35,14 @@ export const privateRequestDoctor = async (
   url: string,
   payload?: any
 ) => {
-  const tokenHospital = await getCookie(
-    "accessTokenDoctor"
-  );
+  const tokenDoctor = await getCookie("accessTokenDoctor");
   return instanceRequest({
-    withCredentials: false,
     method: method,
     url: url,
     data: payload,
     params: method === "GET" ? payload : null,
     headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${tokenHospital}`,
-    },
-  });
-};
-
-export const privateRequestUser = async (
-  method: string,
-  url: string,
-  payload?: any
-) => {
-  const tokenUser = await getCookie("accessTokenUser");
-  return instanceRequest({
-    method: method,
-    url: url,
-    data: payload,
-    headers: {
-      Authorization: `Bearer ${tokenUser}`,
+      Authorization: `Bearer ${tokenDoctor}`,
     },
   });
 };

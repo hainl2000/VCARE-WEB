@@ -117,12 +117,12 @@ a {
   .ant-upload-list-item-info::before {
   left: 0 !important;
 }
-.ant-upload.ant-upload-select-picture-card {
+/* .ant-upload.ant-upload-select-picture-card {
   width: 234px !important;
 }
 .ant-upload-list-picture-card-container {
   width: 234px !important;
-}
+} */
 .ant-upload-list-picture-card
   .ant-upload-list-item-thumbnail,
 .ant-upload-list-picture-card
@@ -227,4 +227,8 @@ a {
   .ant-menu-light .ant-menu-submenu-title:hover {
     color: #feb800 !important;
   }
+}
+
+.red-color {
+  color: red;
 }

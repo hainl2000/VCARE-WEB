@@ -35,6 +35,22 @@ export const createDoctorService = (input: any) => {
   );
 };
 
+export const getDetailDoctorService = (id: number) => {
+  return privateRequestHospital(
+    "GET",
+    API_PATH.DOCTOR_MANAGE,
+    { doctor_id: id }
+  );
+};
+
+export const updateDoctorService = (input: any) => {
+  return privateRequestHospital(
+    "PUT",
+    API_PATH.DOCTOR_MANAGE,
+    input
+  );
+};
+
 export const getListDoctorRoles = () => {
   return privateRequestHospital(
     "GET",

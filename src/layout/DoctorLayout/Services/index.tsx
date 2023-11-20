@@ -1,56 +1,50 @@
 import React, { useEffect, useState } from "react";
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  HomeOutlined,
-  UserOutlined,
-  LogoutOutlined,
-  UsergroupAddOutlined,
-} from "@ant-design/icons";
 import { Button, Layout, Menu, Space } from "antd";
 import styles from "./index.module.scss";
-import { useRouter } from "next/router";
+import {
+  HistoryOutlined,
+  LogoutOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { deleteCookie, getCookie } from "cookies-next";
-import { useProfile } from "@/store/ManagerProfile/useProfile";
-import { initialManagerProfile } from "@/store/ManagerProfile/profile";
+import router, { useRouter } from "next/router";
 const { Header, Sider, Content } = Layout;
-
-const HospitalLayout = ({
+const ServiceDoctorLayout = ({
   children,
 }: {
   children: any;
 }) => {
+  const [doctor, setDoctor] = useState<any>();
   const [collapsed, setCollapsed] = useState(false);
-  //@ts-ignore
-  const [manager, setManager] = useState<any>();
   useEffect(() => {
-    if (getCookie("managerProfile")) {
-      const managerProfile = JSON.parse(
-        getCookie("managerProfile") as string
+    if (getCookie("doctorProfile")) {
+      const doctorProfile = JSON.parse(
+        getCookie("doctorProfile") as string
       );
 
-      setManager(managerProfile);
+      setDoctor(doctorProfile);
     }
   }, []);
   const router = useRouter();
   const handleLogout = () => {
-    router.push("/hospital/login");
-    deleteCookie("accessTokenHospital");
-    deleteCookie("managerProfile");
+    router.push("/doctor/login");
+    deleteCookie("accessTokenDoctor");
+    deleteCookie("doctorProfile");
   };
   const activeMenu = () => {
     switch (router.pathname) {
-      case "/hospital/doctor-management":
+      case "/doctor/services/appointment":
         return ["1"];
-      case "/hospital/department-management":
+      case "/doctor/services/history":
         return ["2"];
-      case "/hospital/service-management":
-        return ["3"];
+      // case "/doctor/service-management":
+      //   return ["3"];
       default:
         return [];
     }
   };
-
   return (
     <Layout className={styles.managerLayout}>
       <Sider
@@ -85,11 +79,11 @@ const HospitalLayout = ({
             color: "white",
             marginTop: "20px",
             background: `linear-gradient(
-					to right,
-					#4fc58d,
-					#48b392,
-					#45a298
-				 )`,
+            to right,
+            #4fc58d,
+            #48b392,
+            #45a298
+          )`,
           }}
           items={[
             {
@@ -100,41 +94,24 @@ const HospitalLayout = ({
                 <div
                   onClick={() => {
                     router.push(
-                      "/hospital/doctor-management"
+                      "/doctor/services/appointment"
                     );
                   }}
                 >
-                  Quản lý bác sĩ
+                  Dịch vụ khám
                 </div>
               ),
             },
             {
               key: "2",
-              icon: <HomeOutlined />,
+              icon: <HistoryOutlined />,
               label: (
                 <div
                   onClick={() => {
-                    router.push(
-                      "/hospital/department-management"
-                    );
+                    router.push("/doctor/services/history");
                   }}
                 >
-                  Quản lý khoa khám
-                </div>
-              ),
-            },
-            {
-              key: "3",
-              icon: <UsergroupAddOutlined />,
-              label: (
-                <div
-                  onClick={() => {
-                    router.push(
-                      "/hospital/service-management"
-                    );
-                  }}
-                >
-                  Quản lý dịch vụ khám
+                  Lịch sử khám
                 </div>
               ),
             },
@@ -152,17 +129,18 @@ const HospitalLayout = ({
             alignItems: "center",
           }}
         >
-          {React.createElement(
-            collapsed
-              ? MenuUnfoldOutlined
-              : MenuFoldOutlined,
-            {
-              className: "trigger",
-              onClick: () => setCollapsed(!collapsed),
-            }
-          )}
-
-          {manager && (
+          <div>
+            {React.createElement(
+              collapsed
+                ? MenuUnfoldOutlined
+                : MenuFoldOutlined,
+              {
+                className: "trigger",
+                onClick: () => setCollapsed(!collapsed),
+              }
+            )}
+          </div>
+          {doctor && (
             <>
               <Space>
                 <div
@@ -171,7 +149,7 @@ const HospitalLayout = ({
                     fontWeight: 600,
                   }}
                 >
-                  {manager?.name}
+                  {doctor?.full_name}
                 </div>
                 <Button
                   icon={<LogoutOutlined />}
@@ -197,4 +175,4 @@ const HospitalLayout = ({
   );
 };
 
-export default HospitalLayout;
+export default ServiceDoctorLayout;
