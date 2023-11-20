@@ -65,7 +65,10 @@ const CreateDoctorForm = ({
     setOpen(false);
   };
   const onFinish = (value: any) => {
-    createDoctor.run(value);
+    createDoctor.run({
+      ...value,
+      role_id: roleDoctor,
+    });
   };
   const renderRole = (role: string) => {
     switch (role) {

@@ -30,6 +30,27 @@ export const privateRequestHospital = async (
   });
 };
 
+export const privateRequestDoctor = async (
+  method: string,
+  url: string,
+  payload?: any
+) => {
+  const tokenHospital = await getCookie(
+    "accessTokenDoctor"
+  );
+  return instanceRequest({
+    withCredentials: false,
+    method: method,
+    url: url,
+    data: payload,
+    params: method === "GET" ? payload : null,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${tokenHospital}`,
+    },
+  });
+};
+
 export const privateRequestUser = async (
   method: string,
   url: string,
