@@ -25,8 +25,12 @@ const LoginHospital = () => {
       console.log(res.data);
       router.push("/hospital/doctor-management");
       //   setCookie("adminId", res?.data?.profile.id);
-      setCookie("managerProfile", res?.data?.profile);
-      setCookie("accessTokenHospital", res?.data?.token);
+      setCookie("managerProfile", res?.data?.profile, {
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+      });
+      setCookie("accessTokenHospital", res?.data?.token, {
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+      });
       setProfileHospitalManager(res?.data?.profile);
       notification.success({
         message: "Đăng nhập thành công",

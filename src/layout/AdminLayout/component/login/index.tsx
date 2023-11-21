@@ -24,9 +24,15 @@ const AdminLogin = () => {
     onSuccess: (res) => {
       router.push("/admin/hospital-management");
       console.log(res.data);
-      setCookie("adminId", res?.data?.profile.id);
-      setCookie("adminProfile", res?.data?.profile);
-      setCookie("accessTokenAdmin", res?.data?.token);
+      setCookie("adminId", res?.data?.profile.id, {
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+      });
+      setCookie("adminProfile", res?.data?.profile, {
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+      });
+      setCookie("accessTokenAdmin", res?.data?.token, {
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+      });
       setProfileAdmin(res?.data?.profile);
       notification.success({
         message: "Đăng nhập thành công",

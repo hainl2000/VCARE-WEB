@@ -23,8 +23,12 @@ const DoctorLogin = () => {
     manual: true,
     onSuccess: (res) => {
       console.log(res.data);
-      setCookie("doctorProfile", res?.data?.profile);
-      setCookie("accessTokenDoctor", res?.data?.token);
+      setCookie("doctorProfile", res?.data?.profile, {
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+      });
+      setCookie("accessTokenDoctor", res?.data?.token, {
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+      });
       switch (res.data.profile.drole.id) {
         case 1: {
           router.push("/doctor/reception/appointment");

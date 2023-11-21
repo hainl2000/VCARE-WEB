@@ -9,6 +9,14 @@ const instanceRequest = axios.create({
 });
 
 export const request = instanceRequest;
+// instanceRequest.interceptors.response.use(
+//   (res) => {
+//     return res;
+//   },
+//   (err) => {
+//     console.log(err, "interceptors");
+//   }
+// );
 export const privateRequestHospital = async (
   method: string,
   url: string,
