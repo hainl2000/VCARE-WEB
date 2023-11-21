@@ -18,7 +18,7 @@ export async function middleware(request: NextRequest) {
     !tokenHospital &&
     path !== "/hospital/login" &&
     !path.includes("/admin") &&
-    !path.includes("/doctor")
+    !path.includes("/doctor/")
   ) {
     return NextResponse.redirect(
       new URL("/hospital/login", request.url)
@@ -28,7 +28,7 @@ export async function middleware(request: NextRequest) {
     tokenHospital &&
     path === "/hospital/login" &&
     !path.includes("/admin") &&
-    !path.includes("/doctor")
+    !path.includes("/doctor/")
   ) {
     return NextResponse.redirect(
       new URL("/hospital", request.url)
@@ -80,7 +80,7 @@ export const config = {
     "/hospital/login",
     "/hospital/service-management",
     "/hospital/doctor-management",
-    "/hospital/deparment-management",
+    "/hospital/department-management",
     "/admin",
     "/admin/login",
     "/admin/hospital-management",
