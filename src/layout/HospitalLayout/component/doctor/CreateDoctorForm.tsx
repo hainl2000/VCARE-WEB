@@ -96,7 +96,7 @@ const CreateDoctorForm = ({
     createDoctor.run({
       ...value,
       role_id: roleDoctor,
-      avatar: value.avatar.file?.response?.url,
+      avatar: value?.avatar?.file?.response?.url,
     });
   };
   const renderRole = (role: string) => {

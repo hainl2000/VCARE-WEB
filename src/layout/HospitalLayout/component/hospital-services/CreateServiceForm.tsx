@@ -36,17 +36,9 @@ const CreateServiceForm = ({
   };
   const onFinish = (value: any) => {
     //  console.log(value);
-    const b: any = {};
-    value?.template.forEach((item: any) => {
-      b[item.key] = item.value;
-    });
-    console.log({
-      ...value,
-      template: b,
-    });
+
     createService.run({
       ...value,
-      template: b,
     });
   };
   return (
