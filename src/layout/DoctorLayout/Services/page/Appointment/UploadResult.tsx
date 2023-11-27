@@ -76,8 +76,23 @@ const UploadResult = ({
   };
   const onChange: UploadProps["onChange"] = ({
     fileList: newFileList,
+    file,
   }) => {
+    console.log(file, newFileList);
     setFileList(newFileList);
+    const checkUpload = newFileList?.every(
+      (file) => file?.status === "done"
+    );
+    if (checkUpload) {
+      const payload = {
+        service_id: serviceId,
+        appointment_id: appointmentId,
+        result_image: newFileList?.map(
+          (item) => item.response?.url
+        ),
+      };
+      updateAppointment.run(payload);
+    }
   };
   const tokenDotor = getCookie("accessTokenDoctor");
 
@@ -111,10 +126,10 @@ const UploadResult = ({
             fileList={fileList}
             onChange={onChange}
           >
-            {fileList.length < 5 && "Kết quả khám"}
+            {fileList.length < 1 && "Kết quả khám"}
           </Upload>
         </Form.Item>
-        <Form.Item>
+        {/* <Form.Item>
           <Row justify="center">
             <Button
               type="primary"
@@ -124,7 +139,7 @@ const UploadResult = ({
               Tải lên kết quả khám
             </Button>
           </Row>
-        </Form.Item>
+        </Form.Item> */}
       </Form>
       <Modal
         open={previewOpen}
