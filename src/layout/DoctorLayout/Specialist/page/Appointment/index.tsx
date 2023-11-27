@@ -105,6 +105,11 @@ const AppointmentSpecialist = () => {
       render: (value, record) => (
         <>
           <Button
+            type={
+              record.status === "REQUESTING"
+                ? "primary"
+                : "ghost"
+            }
             onClick={() => {
               if (record.status === "REQUESTING") {
                 setAppointmentId(record.id);
