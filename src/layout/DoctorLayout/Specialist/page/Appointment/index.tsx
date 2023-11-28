@@ -51,7 +51,6 @@ const AppointmentSpecialist = () => {
       setDoctor(doctorProfile);
     }
   }, []);
-  console.log(doctor);
 
   const searchForm = (
     <div className={styles.searchForm}>
