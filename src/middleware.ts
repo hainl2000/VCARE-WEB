@@ -12,6 +12,7 @@ export async function middleware(request: NextRequest) {
   const tokenHospital = cookies.get("accessTokenHospital");
   const tokenAdmin = cookies.get("accessTokenAdmin");
   const tokenDoctor = cookies.get("accessTokenDoctor");
+  const doctorProfile = cookies.get("doctorProfile");
   const path = request.nextUrl.pathname;
 
   if (
@@ -20,9 +21,10 @@ export async function middleware(request: NextRequest) {
     !path.includes("/admin") &&
     !path.includes("/doctor/")
   ) {
-    return NextResponse.redirect(
-      new URL("/hospital/login", request.url)
-    );
+    if (path !== "/doctor")
+      return NextResponse.redirect(
+        new URL("/hospital/login", request.url)
+      );
   }
   if (
     tokenHospital &&
@@ -45,14 +47,28 @@ export async function middleware(request: NextRequest) {
     );
   }
   if (
-    tokenDoctor &&
-    path === "/doctor/login" &&
-    !path.includes("/hospital") &&
-    !path.includes("/admin")
+    (tokenDoctor &&
+      path === "/doctor/login" &&
+      !path.includes("/hospital") &&
+      !path.includes("/admin")) ||
+    path === "/doctor"
   ) {
-    return NextResponse.redirect(
-      new URL("/doctor", request.url)
+    const doctor = JSON.parse(
+      doctorProfile?.value as string
     );
+    if (doctor?.drole?.id === 2) {
+      return NextResponse.redirect(
+        new URL(
+          "/doctor/specialist/appointment",
+          request.url
+        )
+      );
+    }
+    if (doctor?.drole?.id === 3) {
+      return NextResponse.redirect(
+        new URL("/doctor/services/appointment", request.url)
+      );
+    }
   }
   if (
     !tokenAdmin &&
@@ -84,8 +100,10 @@ export const config = {
     "/admin",
     "/admin/login",
     "/admin/hospital-management",
+    "/doctor",
     "/doctor/login",
     "/doctor/services",
+    "/doctor/services/appointment",
     "/doctor/specialist",
     "/doctor/specialist/appointment",
   ],
