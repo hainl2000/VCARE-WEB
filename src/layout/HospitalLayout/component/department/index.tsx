@@ -37,11 +37,8 @@ const HospitalDepartment = () => {
       dataIndex: "name",
     },
     {
-      title: "Số bác sĩ trong khoa",
-      dataIndex: "doctors",
-      render(value) {
-        return <>{value?.length}</>;
-      },
+      title: "Thời gian khám trung bình (phút)",
+      dataIndex: "time_per_turn",
     },
     {
       title: "Số cuộc hẹn khám",

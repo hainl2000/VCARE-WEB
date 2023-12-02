@@ -5,6 +5,7 @@ import {
   Button,
   Form,
   Input,
+  InputNumber,
   Modal,
   Row,
   message,
@@ -50,6 +51,17 @@ const CreateDepartmentForm = ({
       >
         <Form.Item name="name" label="Tên khoa">
           <Input placeholder="Nhập tên khoa khám" />
+        </Form.Item>
+
+        <Form.Item
+          name="time_per_turn"
+          label="Thời gian mỗi lần khám"
+          initialValue={5}
+        >
+          <InputNumber
+            addonAfter="Phút"
+            placeholder="Thời gian"
+          />
         </Form.Item>
         <Row justify="end">
           <Button
