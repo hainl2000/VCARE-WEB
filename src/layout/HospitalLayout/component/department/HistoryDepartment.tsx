@@ -51,7 +51,7 @@ const HistoryDepartment = () => {
   const columns: ColumnsType<any> = [
     {
       title: "Thời gian đặt khám",
-      dataIndex: "time",
+      dataIndex: "time_in_string",
       render: (value) => (
         <>{dayjs(value).format("DD/MM/YYYY HH:mm")}</>
       ),
