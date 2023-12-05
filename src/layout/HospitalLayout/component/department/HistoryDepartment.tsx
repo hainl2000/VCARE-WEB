@@ -77,11 +77,8 @@ const HistoryDepartment = () => {
       render: (value, record) => (
         <>
           <Button
-            type={
-              record.status === "REQUESTING"
-                ? "primary"
-                : "ghost"
-            }
+            type="primary"
+            ghost
             onClick={() => {
               router.push(
                 `/doctor/specialist/appointment/${record.id}`

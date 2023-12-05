@@ -35,6 +35,17 @@ export const createDepartmentService = (input: any) => {
   );
 };
 
+export const uploadDepartmentService = (
+  input: any,
+  id: number
+) => {
+  return privateRequestHospital(
+    "PUT",
+    API_PATH.DEPARTMENT_DETAIL(id),
+    { ...input }
+  );
+};
+
 export const historyDepartmentService = (
   {
     current,

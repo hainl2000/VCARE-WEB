@@ -41,7 +41,7 @@ const CreateDepartmentForm = ({
       width={800}
       open={open}
       onCancel={onCancel}
-      title="Thêm khoa khám"
+      title="Thêm phòng khám"
       footer={null}
     >
       <Form
@@ -49,8 +49,8 @@ const CreateDepartmentForm = ({
         layout="vertical"
         onFinish={onFinish}
       >
-        <Form.Item name="name" label="Tên khoa">
-          <Input placeholder="Nhập tên khoa khám" />
+        <Form.Item name="name" label="Tên phòng khám">
+          <Input placeholder="Nhập tên phòng khám" />
         </Form.Item>
 
         <Form.Item
@@ -62,6 +62,9 @@ const CreateDepartmentForm = ({
             addonAfter="Phút"
             placeholder="Thời gian"
           />
+        </Form.Item>
+        <Form.Item name="room" label="Số phòng">
+          <Input placeholder="Mã số phòng" />
         </Form.Item>
         <Row justify="end">
           <Button

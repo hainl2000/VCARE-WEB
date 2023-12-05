@@ -1,6 +1,9 @@
 import { useRequest } from "ahooks";
 import React from "react";
-import { createDepartmentService } from "./service";
+import {
+  createDepartmentService,
+  uploadDepartmentService,
+} from "./service";
 import {
   Button,
   Form,
@@ -11,15 +14,23 @@ import {
   message,
 } from "antd";
 import { CreateFormProps } from "@/type/common.interface";
-
+interface DetailForm {
+  open: boolean;
+  setOpen: any;
+  refresh: () => void;
+  id: number;
+  info: any;
+}
 const DetailDepartmentForm = ({
   open,
   setOpen,
   refresh,
-}: CreateFormProps) => {
+  info,
+  id,
+}: DetailForm) => {
   const [form] = Form.useForm();
-  const createDepartment = useRequest(
-    createDepartmentService,
+  const updateDepartment = useRequest(
+    uploadDepartmentService,
     {
       manual: true,
       onSuccess(res) {
@@ -34,23 +45,24 @@ const DetailDepartmentForm = ({
     setOpen(false);
   };
   const onFinish = (values: any) => {
-    createDepartment.run(values);
+    updateDepartment.run(values, id);
   };
   return (
     <Modal
       width={800}
       open={open}
       onCancel={onCancel}
-      title="Thêm khoa khám"
+      title="Chỉnh sửa thông tin phòng khám"
       footer={null}
     >
       <Form
         form={form}
         layout="vertical"
         onFinish={onFinish}
+        initialValues={info}
       >
-        <Form.Item name="name" label="Tên khoa">
-          <Input placeholder="Nhập tên khoa khám" />
+        <Form.Item name="name" label="Tên phòng khám">
+          <Input placeholder="Nhập tên phòng khám" />
         </Form.Item>
 
         <Form.Item
@@ -63,11 +75,14 @@ const DetailDepartmentForm = ({
             placeholder="Thời gian"
           />
         </Form.Item>
+        <Form.Item name="room" label="Số phòng">
+          <Input placeholder="Mã số phòng" />
+        </Form.Item>
         <Row justify="end">
           <Button
             type="primary"
             htmlType="submit"
-            loading={createDepartment.loading}
+            loading={updateDepartment.loading}
             style={{
               margin: "0 10px",
               padding: "0 10px",
