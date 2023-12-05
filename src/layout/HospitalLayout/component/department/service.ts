@@ -34,3 +34,37 @@ export const createDepartmentService = (input: any) => {
     { ...input }
   );
 };
+
+export const historyDepartmentService = (
+  {
+    current,
+    pageSize,
+    id,
+  }: {
+    current: number;
+    pageSize: number;
+    id: number;
+  },
+  formData?: {
+    searchText: string;
+  }
+) => {
+  console.log(id);
+
+  const params = {
+    department_id: id,
+    pageSize: pageSize,
+    pageIndex: current,
+    search_value: formData?.searchText ?? "",
+  };
+  return privateRequestHospital(
+    "GET",
+    API_PATH.APPOINTMENT,
+    params
+  ).then((response) => {
+    return {
+      list: response.data.data,
+      total: response.data.total,
+    };
+  });
+};

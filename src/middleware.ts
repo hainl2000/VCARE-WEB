@@ -106,5 +106,6 @@ export const config = {
     "/doctor/services/appointment",
     "/doctor/specialist",
     "/doctor/specialist/appointment",
+    "/doctor/specialist/history",
   ],
 };

@@ -119,7 +119,7 @@ const HospitalLayout = ({
                     );
                   }}
                 >
-                  Quản lý khoa khám
+                  Quản lý phòng khám
                 </div>
               ),
             },

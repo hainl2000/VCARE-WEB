@@ -14,10 +14,12 @@ import DetailDepartmentForm from "./DetailDepartmentForm";
 import { ColumnsType } from "antd/lib/table";
 import { useAntdTable } from "ahooks";
 import { getListDepartment } from "./service";
+import { useRouter } from "next/router";
 const HospitalDepartment = () => {
   const [form] = Form.useForm();
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenDetail, setIsOpenDetail] = useState(false);
+  const router = useRouter();
   const { tableProps, search, refresh } = useAntdTable(
     getListDepartment,
     {
@@ -33,7 +35,7 @@ const HospitalDepartment = () => {
       dataIndex: "id",
     },
     {
-      title: "Tên khoa khám",
+      title: "Tên phòng khám",
       dataIndex: "name",
     },
     {
@@ -46,6 +48,24 @@ const HospitalDepartment = () => {
       render(value) {
         return <>{value?.length}</>;
       },
+    },
+    {
+      title: "Hành động",
+      width: "10%",
+      align: "center",
+      render: (value: any, record: any) => (
+        <>
+          <Button
+            onClick={() => {
+              router.push(
+                `/hospital/department-management/${record.id}`
+              );
+            }}
+          >
+            Xem lịch sử khám
+          </Button>
+        </>
+      ),
     },
   ];
   const { submit } = search;
@@ -65,7 +85,7 @@ const HospitalDepartment = () => {
         onClick={() => setIsOpen(true)}
         icon={<PlusOutlined />}
       >
-        Thêm khoa khám
+        Thêm phòng khám
       </Button>
     </div>
   );
@@ -73,7 +93,7 @@ const HospitalDepartment = () => {
     <div className={styles.wrapper}>
       <Typography>
         <Typography.Title level={5}>
-          Quản lý khoa khám
+          Quản lý phòng khám
         </Typography.Title>
       </Typography>
       {searchForm}

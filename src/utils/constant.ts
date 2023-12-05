@@ -24,4 +24,5 @@ export const API_PATH = {
   UPDATE_APPOINTMENT: (id: number) => `/appointment/${id}`,
   SEARCH_APPOINTMENT: "/appointment/search-appointment",
   UPDATE_SERVICE_APPOINTMENT: "/appointment/service",
+  HISTORY_SPECIALIST: "/appointment/history",
 };
