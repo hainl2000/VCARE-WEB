@@ -115,10 +115,10 @@ const HospitalDepartment = () => {
       )}
       {isOpenDetail && (
         <DetailDepartmentForm
-        //  open={isOpenDetail}
-        //  setOpen={setIsOpenDetail}
-        //  refresh={refresh}
-        //  id={Number(id)}
+          open={isOpenDetail}
+          setOpen={setIsOpenDetail}
+          refresh={refresh}
+          //  id={Number(id)}
         />
       )}
     </div>
