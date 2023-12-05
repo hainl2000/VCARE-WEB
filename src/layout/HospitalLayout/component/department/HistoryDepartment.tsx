@@ -25,14 +25,13 @@ const HistoryDepartment = () => {
       run({
         current: 1,
         pageSize: 10,
-        id: +id,
+        id: Number(id),
       });
-      setIdDepartment(+id);
     }
   }, [id]);
   console.log(idDepartment);
 
-  const { tableProps, search, run } = useAntdTable(
+  const { tableProps, search, run, data } = useAntdTable(
     historyDepartmentService,
     {
       manual: true,
@@ -129,7 +128,7 @@ const HistoryDepartment = () => {
         />
         <Typography>
           <Typography.Title level={5}>
-            Lịch sử đặt khám
+            Lịch sử đặt khám {data?.department}
           </Typography.Title>
         </Typography>
       </div>

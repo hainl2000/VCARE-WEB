@@ -52,7 +52,7 @@ export const historyDepartmentService = (
   console.log(id);
 
   const params = {
-    department_id: id,
+    department_id: Number(id),
     pageSize: pageSize,
     pageIndex: current,
     search_value: formData?.searchText ?? "",
@@ -65,6 +65,7 @@ export const historyDepartmentService = (
     return {
       list: response.data.data,
       total: response.data.total,
+      department: response.data?.department,
     };
   });
 };
