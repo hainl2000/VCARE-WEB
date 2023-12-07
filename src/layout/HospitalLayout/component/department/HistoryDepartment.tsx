@@ -26,14 +26,13 @@ const HistoryDepartment = () => {
       run({
         current: 1,
         pageSize: 10,
-        id: +id,
+        id: Number(id),
       });
-      setIdDepartment(+id);
     }
   }, [id]);
   console.log(idDepartment);
 
-  const { tableProps, search, run } = useAntdTable(
+  const { tableProps, search, run, data } = useAntdTable(
     historyDepartmentService,
     {
       manual: true,
@@ -53,7 +52,7 @@ const HistoryDepartment = () => {
   const columns: ColumnsType<any> = [
     {
       title: "Thời gian đặt khám",
-      dataIndex: "time",
+      dataIndex: "time_in_string",
       render: (value) => (
         <>{dayjs(value).format("DD/MM/YYYY HH:mm")}</>
       ),
@@ -79,14 +78,11 @@ const HistoryDepartment = () => {
       render: (value, record) => (
         <>
           <Button
-            type={
-              record.status === "REQUESTING"
-                ? "primary"
-                : "ghost"
-            }
+            type="primary"
+            ghost
             onClick={() => {
               router.push(
-                `/doctor/specialist/appointment/${record.id}`
+                `/hospital/appointment/${record.id}`
               );
             }}
           >
@@ -142,7 +138,7 @@ const HistoryDepartment = () => {
         />
         <Typography>
           <Typography.Title level={5}>
-            Lịch sử đặt khám
+            Lịch sử đặt khám {data?.department}
           </Typography.Title>
         </Typography>
       </div>

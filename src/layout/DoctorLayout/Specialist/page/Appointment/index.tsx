@@ -136,7 +136,7 @@ const AppointmentSpecialist = () => {
     <div className={styles.wrapper}>
       <Typography>
         <Typography.Title level={5}>
-          Quản lý lịch khám
+          Lịch khám trong ngày
         </Typography.Title>
       </Typography>
       {searchForm}

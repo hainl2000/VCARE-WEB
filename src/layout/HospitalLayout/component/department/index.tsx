@@ -4,11 +4,15 @@ import {
   Button,
   Form,
   Input,
+  Row,
   Table,
   Typography,
   message,
 } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import {
+  EditOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
 import CreateDepartmentForm from "./CreateDepartmentForm";
 import DetailDepartmentForm from "./DetailDepartmentForm";
 import { ColumnsType } from "antd/lib/table";
@@ -19,6 +23,7 @@ const HospitalDepartment = () => {
   const [form] = Form.useForm();
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenDetail, setIsOpenDetail] = useState(false);
+  const [info, setInfo] = useState<any>();
   const router = useRouter();
   const { tableProps, search, refresh } = useAntdTable(
     getListDepartment,
@@ -43,18 +48,23 @@ const HospitalDepartment = () => {
       dataIndex: "time_per_turn",
     },
     {
-      title: "Số cuộc hẹn khám",
-      dataIndex: "health_check_appointment",
-      render(value) {
-        return <>{value?.length}</>;
-      },
+      title: "Mã số phòng",
+      dataIndex: "room",
+      // render(value) {
+      //   return <>{value?.length}</>;
+      // },
+    },
+    {
+      title: "Số đơn đặt khám ngày mai",
+      dataIndex: "start_order",
+      render: (value) => <>{value - 1}</>,
     },
     {
       title: "Hành động",
-      width: "10%",
+      // width: "15%",
       align: "center",
       render: (value: any, record: any) => (
-        <>
+        <Row justify="space-around">
           <Button
             onClick={() => {
               router.push(
@@ -62,9 +72,18 @@ const HospitalDepartment = () => {
               );
             }}
           >
-            Xem lịch sử khám
+            Xem đơn khám
           </Button>
-        </>
+          <Button
+            title="Chỉnh sửa"
+            icon={<EditOutlined />}
+            type="primary"
+            onClick={() => {
+              setIsOpenDetail(true);
+              setInfo(record);
+            }}
+          ></Button>
+        </Row>
       ),
     },
   ];
@@ -115,10 +134,12 @@ const HospitalDepartment = () => {
       )}
       {isOpenDetail && (
         <DetailDepartmentForm
-        //  open={isOpenDetail}
-        //  setOpen={setIsOpenDetail}
-        //  refresh={refresh}
-        //  id={Number(id)}
+          open={isOpenDetail}
+          setOpen={setIsOpenDetail}
+          refresh={refresh}
+          //  id={Number(id)}
+          info={info}
+          id={info?.id}
         />
       )}
     </div>

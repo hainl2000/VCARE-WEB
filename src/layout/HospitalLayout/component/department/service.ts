@@ -36,6 +36,17 @@ export const createDepartmentService = (input: any) => {
   );
 };
 
+export const uploadDepartmentService = (
+  input: any,
+  id: number
+) => {
+  return privateRequestHospital(
+    "PUT",
+    API_PATH.DEPARTMENT_DETAIL(id),
+    { ...input }
+  );
+};
+
 export const historyDepartmentService = (
   {
     current,
@@ -51,8 +62,10 @@ export const historyDepartmentService = (
     toDate: string[];
   }
 ) => {
+  console.log(id);
+
   const params: any = {
-    department_id: id,
+    department_id: Number(id),
     pageSize: pageSize,
     pageIndex: current,
     search_value: formData?.searchText ?? "",
@@ -75,6 +88,14 @@ export const historyDepartmentService = (
     return {
       list: response.data.data,
       total: response.data.total,
+      department: response.data?.department,
     };
   });
+};
+
+export const getDetailAppointment = (id: number) => {
+  return privateRequestHospital(
+    "GET",
+    API_PATH.DETAIL_APPOINTMENT(id)
+  );
 };
