@@ -55,8 +55,13 @@ const HospitalDepartment = () => {
       // },
     },
     {
+      title: "Số đơn đặt khám ngày mai",
+      dataIndex: "start_order",
+      render: (value) => <>{value - 1}</>,
+    },
+    {
       title: "Hành động",
-      width: "15%",
+      // width: "15%",
       align: "center",
       render: (value: any, record: any) => (
         <Row justify="space-around">

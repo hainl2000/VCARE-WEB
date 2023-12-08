@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./index.module.scss";
 import {
   Button,
+  DatePicker,
   Form,
   Input,
   Row,
@@ -81,7 +82,7 @@ const HistoryDepartment = () => {
             ghost
             onClick={() => {
               router.push(
-                `/doctor/specialist/appointment/${record.id}`
+                `/hospital/appointment/${record.id}`
               );
             }}
           >
@@ -100,6 +101,18 @@ const HistoryDepartment = () => {
             allowClear
             placeholder="Tìm kiếm"
             onSearch={submit}
+          />
+        </Form.Item>
+        <Form.Item
+          name="toDate"
+          className={styles.searchItem}
+        >
+          <DatePicker.RangePicker
+            format="DD/MM/YYYY"
+            onChange={submit}
+            className="w-100"
+            picker="date"
+            placeholder={["Từ ngày", "Đến ngày"]}
           />
         </Form.Item>
       </Form>

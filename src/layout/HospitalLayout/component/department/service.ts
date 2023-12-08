@@ -1,5 +1,6 @@
 import { privateRequestHospital } from "@/api/request";
 import { API_PATH } from "@/utils/constant";
+import moment from "moment";
 
 export const getListDepartment = (
   {
@@ -58,16 +59,27 @@ export const historyDepartmentService = (
   },
   formData?: {
     searchText: string;
+    toDate: string[];
   }
 ) => {
   console.log(id);
 
-  const params = {
+  const params: any = {
     department_id: Number(id),
     pageSize: pageSize,
     pageIndex: current,
     search_value: formData?.searchText ?? "",
   };
+  const fromDate = Array.isArray(formData?.toDate)
+    ? moment(formData?.toDate[0]).format("YYYY-MM-DD")
+    : "";
+  const toDate = Array.isArray(formData?.toDate)
+    ? moment(formData?.toDate[1]).format("YYYY-MM-DD")
+    : "";
+  if (!!fromDate && !!toDate) {
+    params.startFrom = fromDate;
+    params.endAt = toDate;
+  }
   return privateRequestHospital(
     "GET",
     API_PATH.APPOINTMENT,
@@ -79,4 +91,11 @@ export const historyDepartmentService = (
       department: response.data?.department,
     };
   });
+};
+
+export const getDetailAppointment = (id: number) => {
+  return privateRequestHospital(
+    "GET",
+    API_PATH.DETAIL_APPOINTMENT(id)
+  );
 };
