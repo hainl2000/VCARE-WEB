@@ -77,10 +77,15 @@ const AppointmentSpecialist = () => {
   };
   const columns: ColumnsType<any> = [
     {
+      title: "Số thứ tự",
+      dataIndex: "order",
+      width: "10%",
+    },
+    {
       title: "Thời gian đặt khám",
-      dataIndex: "time",
+      dataIndex: "time_in_string",
       render: (value) => (
-        <>{dayjs(value).format("DD/MM/YYYY HH:mm")}</>
+        <>{dayjs(value).format("DD/MM/YYYY")}</>
       ),
     },
     {
