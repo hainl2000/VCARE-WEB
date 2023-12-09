@@ -116,7 +116,7 @@ const SpecialistDoctorLayout = ({
                     );
                   }}
                 >
-                  Lịch sử khám
+                  Lịch khám
                 </div>
               ),
             },

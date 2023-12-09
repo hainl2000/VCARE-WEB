@@ -106,21 +106,22 @@ const DetailAppointment = () => {
       <div className={styles.title}>
         <Typography>
           <Typography.Title level={5}>
-            <Link
+            {/* <Link
               href="/doctor/specialist/appointment"
               style={{
                 color: "black",
               }}
-            >
-              <Space>
-                <LeftOutlined
-                  style={{
-                    marginRight: "5px",
-                  }}
-                />
-                Chi tiết thông tin đặt khám
-              </Space>
-            </Link>
+            > */}
+            <Space>
+              <LeftOutlined
+                onClick={() => router.back()}
+                style={{
+                  marginRight: "5px",
+                }}
+              />
+              Chi tiết thông tin đặt khám
+            </Space>
+            {/* </Link> */}
           </Typography.Title>
         </Typography>
         <Card title="Thông tin bệnh nhân">

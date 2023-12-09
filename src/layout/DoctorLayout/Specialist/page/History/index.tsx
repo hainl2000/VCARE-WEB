@@ -1,6 +1,13 @@
 import React from "react";
 import styles from "./index.module.scss";
-import { Button, Form, Input, Tag, Typography } from "antd";
+import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  Tag,
+  Typography,
+} from "antd";
 import Table, { ColumnsType } from "antd/lib/table";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
@@ -28,9 +35,9 @@ const HistoryDoctorSpecialist = () => {
   const columns: ColumnsType<any> = [
     {
       title: "Thời gian đặt khám",
-      dataIndex: "time",
+      dataIndex: "time_in_string",
       render: (value) => (
-        <>{dayjs(value).format("DD/MM/YYYY HH:mm")}</>
+        <>{dayjs(value).format("DD/MM/YYYY")}</>
       ),
     },
     {
@@ -54,11 +61,8 @@ const HistoryDoctorSpecialist = () => {
       render: (value, record) => (
         <>
           <Button
-            type={
-              record.status === "REQUESTING"
-                ? "primary"
-                : "ghost"
-            }
+            type="primary"
+            ghost
             onClick={() => {
               router.push(
                 `/doctor/specialist/appointment/${record.id}`
@@ -82,6 +86,18 @@ const HistoryDoctorSpecialist = () => {
             onSearch={submit}
           />
         </Form.Item>
+        <Form.Item
+          name="toDate"
+          className={styles.searchItem}
+        >
+          <DatePicker.RangePicker
+            format="DD/MM/YYYY"
+            onChange={submit}
+            className="w-100"
+            picker="date"
+            placeholder={["Từ ngày", "Đến ngày"]}
+          />
+        </Form.Item>
       </Form>
     </div>
   );
@@ -89,7 +105,7 @@ const HistoryDoctorSpecialist = () => {
     <div className={styles.wrapper}>
       <Typography>
         <Typography.Title level={5}>
-          Lịch sử khám
+          Lịch khám
         </Typography.Title>
       </Typography>
       {searchForm}
