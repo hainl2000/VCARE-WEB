@@ -54,11 +54,11 @@ const HospitalDepartment = () => {
       //   return <>{value?.length}</>;
       // },
     },
-    // {
-    //   title: "Số đơn đặt khám ngày mai",
-    //   dataIndex: "start_order",
-    //   render: (value) => <>{value - 1}</>,
-    // },
+    {
+      title: "Số đơn đặt khám hôm nay",
+      dataIndex: "start_order",
+      render: (value) => <>{value - 1}</>,
+    },
     {
       title: "Hành động",
       // width: "15%",

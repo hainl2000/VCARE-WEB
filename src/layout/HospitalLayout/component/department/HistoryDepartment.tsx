@@ -70,6 +70,7 @@ const HistoryDepartment = () => {
       dataIndex: "status",
       render: (value) => <>{renderStatus(value)}</>,
     },
+
     {
       title: "Hành động",
       width: "10%",
