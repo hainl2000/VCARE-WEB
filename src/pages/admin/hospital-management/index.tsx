@@ -1,6 +1,10 @@
 import React from "react";
-import AdminLayout from "@/layout/AdminLayout/AdminLayout";
 import HospitalManagement from "@/layout/AdminLayout/component/hospital";
+import dynamic from "next/dynamic";
+
+const AdminLayout = dynamic(
+  () => import("@/layout/AdminLayout/AdminLayout")
+);
 
 const HospitalManagePage = () => {
   return (
