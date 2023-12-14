@@ -20,7 +20,6 @@ const DetailAppointment = dynamic(
       "@/layout/DoctorLayout/Specialist/page/Appointment/DetailAppointment"
     ),
   {
-    ssr: false,
     loading: () => <Skeleton />,
   }
 );

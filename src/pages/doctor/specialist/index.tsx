@@ -7,7 +7,6 @@ const SpecialistDoctorLayout = dynamic(
       "@/layout/DoctorLayout/Specialist/SpecialistDoctorLayout"
     ),
   {
-    ssr: false,
     loading: () => <Skeleton />,
   }
 );

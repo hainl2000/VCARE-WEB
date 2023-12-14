@@ -16,7 +16,6 @@ const HistoryDoctorSpecialist = dynamic(
   () =>
     import("@/layout/DoctorLayout/Specialist/page/History"),
   {
-    ssr: false,
     loading: () => <Skeleton />,
   }
 );

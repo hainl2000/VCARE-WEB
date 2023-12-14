@@ -16,7 +16,6 @@ const DoctorServiceAppointment = dynamic(
       "@/layout/DoctorLayout/Services/page/Appointment"
     ),
   {
-    ssr: false,
     loading: () => <Skeleton />,
   }
 );
