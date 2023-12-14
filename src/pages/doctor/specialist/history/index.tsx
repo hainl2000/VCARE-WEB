@@ -8,6 +8,7 @@ const SpecialistDoctorLayout = dynamic(
       "@/layout/DoctorLayout/Specialist/SpecialistDoctorLayout"
     ),
   {
+    ssr: true,
     loading: () => <Skeleton />,
   }
 );
@@ -16,6 +17,7 @@ const HistoryDoctorSpecialist = dynamic(
   () =>
     import("@/layout/DoctorLayout/Specialist/page/History"),
   {
+    ssr: true,
     loading: () => <Skeleton />,
   }
 );

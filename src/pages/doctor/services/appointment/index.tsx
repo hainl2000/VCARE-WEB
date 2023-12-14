@@ -5,7 +5,7 @@ import React from "react";
 const ServiceDoctorLayout = dynamic(
   () => import("@/layout/DoctorLayout/Services"),
   {
-    ssr: false,
+    ssr: true,
     loading: () => <Skeleton />,
   }
 );
@@ -16,6 +16,7 @@ const DoctorServiceAppointment = dynamic(
       "@/layout/DoctorLayout/Services/page/Appointment"
     ),
   {
+    ssr: true,
     loading: () => <Skeleton />,
   }
 );

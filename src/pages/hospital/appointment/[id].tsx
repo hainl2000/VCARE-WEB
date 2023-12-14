@@ -1,4 +1,3 @@
-import DetailAppointment from "@/layout/HospitalLayout/component/department/DetailAppointment";
 import { Skeleton } from "antd";
 import { GetStaticPaths } from "next";
 import dynamic from "next/dynamic";
@@ -7,6 +6,18 @@ import React from "react";
 const HospitalLayout = dynamic(
   () => import("@/layout/HospitalLayout/HospitalLayout"),
   {
+    ssr: true,
+    loading: () => <Skeleton />,
+  }
+);
+
+const DetailAppointment = dynamic(
+  () =>
+    import(
+      "@/layout/HospitalLayout/component/department/DetailAppointment"
+    ),
+  {
+    ssr: true,
     loading: () => <Skeleton />,
   }
 );

@@ -21,6 +21,7 @@ const SpecialistDoctorLayout = dynamic(
       "@/layout/DoctorLayout/Specialist/SpecialistDoctorLayout"
     ),
   {
+    ssr: true,
     loading: () => <Skeleton />,
   }
 );
@@ -30,7 +31,7 @@ const AppointmentSpecialist = dynamic(
       "@/layout/DoctorLayout/Specialist/page/Appointment"
     ),
   {
-    ssr: false,
+    ssr: true,
     loading: () => <Skeleton />,
   }
 );

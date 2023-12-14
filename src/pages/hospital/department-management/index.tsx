@@ -1,4 +1,3 @@
-import HospitalDepartment from "@/layout/HospitalLayout/component/department";
 import { Skeleton } from "antd";
 import dynamic from "next/dynamic";
 import React from "react";
@@ -6,6 +5,16 @@ import React from "react";
 const HospitalLayout = dynamic(
   () => import("@/layout/HospitalLayout/HospitalLayout"),
   {
+    ssr: true,
+    loading: () => <Skeleton />,
+  }
+);
+
+const HospitalDepartment = dynamic(
+  () =>
+    import("@/layout/HospitalLayout/component/department"),
+  {
+    ssr: true,
     loading: () => <Skeleton />,
   }
 );

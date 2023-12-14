@@ -5,6 +5,7 @@ import React from "react";
 const LoginHospital = dynamic(
   () => import("@/layout/HospitalLayout/component/login"),
   {
+    ssr: true,
     loading: () => <Skeleton />,
   }
 );
