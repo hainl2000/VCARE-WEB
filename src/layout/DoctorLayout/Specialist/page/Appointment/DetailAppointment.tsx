@@ -10,9 +10,11 @@ import styles from "./index.module.scss";
 import {
   Button,
   Card,
+  DatePicker,
   Form,
   Image,
   Input,
+  Radio,
   Row,
   Select,
   Space,
@@ -26,12 +28,15 @@ import { LeftOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { formatNumber } from "@/utils/helper";
 import { getCookie } from "cookies-next";
+import dayjs from "dayjs";
+import moment from "moment";
 const DetailAppointment = () => {
   const [totalFee, setTotalFee] = useState(0);
   const router = useRouter();
   const { id } = router.query;
   const [form] = Form.useForm();
   const [formAddService] = Form.useForm();
+  const [exam, setExam] = useState<any>();
   const onChange: UploadProps["onChange"] = ({
     fileList: newFileList,
   }) => {
@@ -46,7 +51,6 @@ const DetailAppointment = () => {
     {
       manual: true,
       onSuccess(res) {
-        console.log(res.data);
         form.setFieldsValue({
           ...res.data.patient_information,
           medical_condition: res.data.medical_condition,
@@ -60,6 +64,12 @@ const DetailAppointment = () => {
               url: res.data?.medicine,
             },
           ]);
+          if (!!res.data?.re_examination) {
+            setExam(1);
+          }
+          if (!!res.data?.periodi_examination) {
+            setExam(2);
+          }
         }
       },
     }
@@ -85,11 +95,21 @@ const DetailAppointment = () => {
     }
   );
   const onFinishAppoitment = (val: any) => {
-    updateAppointment.run(Number(id), {
+    const payload: any = {
       finished: true,
       ...val,
       medicine: val.medicine?.file?.response?.url,
-    });
+    };
+    if (!!val.re_examination) {
+      payload.re_examination = dayjs(
+        val.re_examination
+      ).format("DD-MM-YYYY");
+    }
+    if (!!val.periodi_examination) {
+      payload.periodi_examination =
+        val.periodi_examination?.toString();
+    }
+    updateAppointment.run(Number(id), payload);
   };
   const onAddService = (val: any) => {
     updateAppointment.run(Number(id), {
@@ -238,8 +258,9 @@ const DetailAppointment = () => {
           <>
             <Card title="Kết quả khám dịch vụ">
               {detailAppointment.data?.data?.services?.map(
-                (item: any) => (
+                (item: any, i: number) => (
                   <div
+                    key={i}
                     style={{
                       marginBottom: "15px",
                     }}
@@ -271,8 +292,9 @@ const DetailAppointment = () => {
                     ) : (
                       <Image.PreviewGroup>
                         {item?.result_image?.map(
-                          (img: any) => (
+                          (img: any, i: number) => (
                             <Image
+                              key={i}
                               src={img}
                               style={{
                                 width: "150px",
@@ -294,6 +316,16 @@ const DetailAppointment = () => {
                   conclude:
                     detailAppointment.data?.data?.conclude,
                   note: detailAppointment.data?.data?.note,
+                  re_examination: detailAppointment.data
+                    ?.data?.re_examination
+                    ? moment(
+                        detailAppointment.data.data
+                          ?.re_examination
+                      )
+                    : null,
+                  periodi_examination:
+                    detailAppointment.data?.data
+                      ?.periodi_examination,
                 }}
                 disabled={
                   detailAppointment?.data?.data?.finished
@@ -331,6 +363,54 @@ const DetailAppointment = () => {
                     placeholder="Nhập ghi chú"
                   />
                 </Form.Item>
+                {
+                  <Space
+                    style={{
+                      marginBottom: "15px",
+                    }}
+                  >
+                    <Radio.Group defaultValue={exam}>
+                      <Radio
+                        value={1}
+                        onChange={(e) =>
+                          setExam(e.target.value)
+                        }
+                      >
+                        Lịch tái khám
+                      </Radio>
+                      <Radio
+                        value={2}
+                        onChange={(e) =>
+                          setExam(e.target.value)
+                        }
+                      >
+                        Khám định kì
+                      </Radio>
+                    </Radio.Group>
+                  </Space>
+                }
+                {exam === 1 && (
+                  <Form.Item name="re_examination">
+                    <DatePicker format="DD-MM-YYYY" />
+                  </Form.Item>
+                )}
+                {exam === 2 && (
+                  <Form.Item name="periodi_examination">
+                    <Select
+                      style={{
+                        width: "200px",
+                      }}
+                      placeholder="Chọn kỳ hạn"
+                    >
+                      <Select.Option value="3">
+                        3 tháng
+                      </Select.Option>
+                      <Select.Option value="6">
+                        6 tháng
+                      </Select.Option>
+                    </Select>
+                  </Form.Item>
+                )}
                 {!detailAppointment.data?.data
                   ?.finished && (
                   <Row justify="center">
