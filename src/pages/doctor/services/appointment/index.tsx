@@ -1,3 +1,4 @@
+import ListApointmentServices from "@/layout/DoctorLayout/Services/page/Appointment/ListApointmentServices";
 import { Skeleton } from "antd";
 import dynamic from "next/dynamic";
 import React from "react";
@@ -24,7 +25,7 @@ const DoctorServiceAppointment = dynamic(
 const DoctorServiceAppointmentPage = () => {
   return (
     <ServiceDoctorLayout>
-      <DoctorServiceAppointment />
+      <ListApointmentServices />
     </ServiceDoctorLayout>
   );
 };

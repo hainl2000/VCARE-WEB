@@ -1,14 +1,33 @@
 import { privateRequestDoctor } from "@/api/request";
 import { API_PATH } from "@/utils/constant";
+import moment from "moment";
 
-export const getAppointmentService = (search?: string) => {
+export const getAppointmentService = (
+  {
+    current,
+    pageSize,
+  }: { current: number; pageSize: number },
+  form: {
+    search?: string;
+  }
+) => {
+  const params = {
+    search_value: !!form.search ? form.search : "",
+    startFrom: moment(new Date()).format("YYYY-MM-DD"),
+    endAt: moment(new Date()).format("YYYY-MM-DD"),
+  };
   return privateRequestDoctor(
     "GET",
     API_PATH.SEARCH_APPOINTMENT,
     {
-      search_value: !!search ? search : "",
+      ...params,
     }
-  );
+  ).then((res) => {
+    return {
+      list: res.data,
+      total: res.data?.length,
+    };
+  });
 };
 
 export const updateAppointmentService = (input: {

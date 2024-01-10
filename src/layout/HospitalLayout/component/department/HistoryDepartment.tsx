@@ -51,6 +51,10 @@ const HistoryDepartment = () => {
   };
   const columns: ColumnsType<any> = [
     {
+      title: "Số thứ tự",
+      dataIndex: "order",
+    },
+    {
       title: "Thời gian đặt khám",
       dataIndex: "time_in_string",
       render: (value) => (
