@@ -62,7 +62,9 @@ const DoctorServiceAppointment = ({
       <Modal
         title="Tải lên kết quả khám"
         open={isOpen}
+        width={800}
         onCancel={() => setIsOpen(false)}
+        footer={null}
       >
         <Typography>
           <Typography.Title level={4}>

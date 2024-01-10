@@ -50,8 +50,8 @@ const ListApointmentServices = () => {
       title: "Trạng thái",
       render: (value, rc) => (
         <>
-          {rc?.services_result?.every(
-            (item: any) => !!item?.url
+          {rc?.services?.every(
+            (item: any) => item?.result_image?.length > 0
           )
             ? "Đã khám"
             : "Chưa khám"}
@@ -72,13 +72,14 @@ const ListApointmentServices = () => {
               setIsOpen(true);
               setSelected(rc);
             }}
-            // disabled={
-            //   rc?.services_result?.every(
-            //     (item: any) => !!item?.url
-            //   )
-            //     ? true
-            //     : false
-            // }
+            disabled={
+              rc?.services?.every(
+                (item: any) =>
+                  item?.result_image?.length > 0
+              )
+                ? true
+                : false
+            }
           >
             Xem
           </Button>
