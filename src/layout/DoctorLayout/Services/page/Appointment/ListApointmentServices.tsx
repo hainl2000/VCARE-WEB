@@ -72,13 +72,13 @@ const ListApointmentServices = () => {
               setIsOpen(true);
               setSelected(rc);
             }}
-            disabled={
-              rc?.services_result?.every(
-                (item: any) => !!item?.url
-              )
-                ? true
-                : false
-            }
+            // disabled={
+            //   rc?.services_result?.every(
+            //     (item: any) => !!item?.url
+            //   )
+            //     ? true
+            //     : false
+            // }
           >
             Xem
           </Button>
